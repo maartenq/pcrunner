@@ -11,4 +11,4 @@ twine
 pytest==2.9.2
 ipython
 PyYAML
-pytest-cov
+pytest-cov==2.3.1
