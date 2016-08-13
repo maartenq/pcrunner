@@ -29,7 +29,7 @@ Windows
         C:\Python27\python.exe ez_setup.py
 
 
-* Install *Passive Check Runner*
+* Install *pcrunner*
 
     * Download `master.zip`_::
       curl -o master.zip https://codeload.github.com/maartenq/pcrunner/zip/master
@@ -41,7 +41,7 @@ Windows
         C:\Python27\Scripts\easy_install.exe master.zip
 
 
-* Install *Passive Check Runner* as Windows Service
+* Install *pcrunner* as Windows Service
 
     * Go to folder ``C:\Python27\Lib\site-packages\pcrunner-0.2.0-py2.7.egg\pcrunner``
     * Shift-right-click
@@ -51,7 +51,7 @@ Windows
         C:\Python27\python.exe windows_service.py install
 
 
-* Configure *Passive Check Runner* as Windows Service
+* Configure *pcrunner* as Windows Service
 
     * Edit ``C:\Python27\Lib\site-packages\pcrunner-0.2.0-py2.7.egg\pcrunner\etc\pcrunner.yml``
         * *nsca_web_url*
@@ -59,10 +59,10 @@ Windows
         * *nsca_web_password*
 
 
-* Start *Passive Check Runner* as Windows Service
+* Start *pcrunner* as Windows Service
 
     * *Start* -> *Administrative Tools* -> *Services*
-    * Select *Passive Check Runner*
+    * Select *pcrunner*
     * Click start
 
 
@@ -79,7 +79,7 @@ Installation on Fedora/RH/Centos/SL
       command line.
 
 
-* Download *Passive Check Runner*::
+* Download *pcrunner*::
 
     # curl -O https://github.com/maartenq/pcrunner/archive/master.zip
 
@@ -99,7 +99,7 @@ Installation on Fedora/RH/Centos/SL
     # source /<path>/<to>/<virtualenv_dir>/bin/activate
 
 
-* Install *Passive Check Runner*::
+* Install *pcrunner*::
 
     (virtenv)# pip install master.zip
 
@@ -132,19 +132,11 @@ Installation on Fedora/RH/Centos/SL
 Linux RPM
 =========
 
-.. note::
-
-    * Commands with a '#' prompt must be run as root.
-    * Commands with a '$' prompt must be run as a non-root user.
-    * 'sudo' is used when a reverence to a home directory (~) is used in the
-      command line.
-
-
 * Install packages for RPM Build Environment::
 
-    # yum install rpm-build
-    # yum install python-devel
-    # yum install python-setuptools
+    $ sudo yum install rpm-build
+    $ sudo yum install python-devel
+    $ sudo yum install python-setuptools
 
 
 * Create directories for RPM Build Environment::
@@ -157,32 +149,12 @@ Linux RPM
     $ echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 
 
-* Clone the repository::
-
-    $ cd
-    $ git clone git@github.com:maartenq/pcrunner.git
+* Download the lastest tarball from https://pypi.python.org/pypi/pcrunner
 
 
-* Create SRPM package::
+* Build RPM from tarball::
 
-    $ cd pcrunner/
-    $ python setup.py bdist --formats=rpm
-
-
-* Install Source RPM package::
-
-    $ rpm -ivh dist/pcrunner-0.2.0-1.src.rpm
-
-
-* Patch .spec file::
-
-    $ cd ~/rpmbuild/SPECS/
-    $ patch < ~/pcrunner/pcrunner.spec.patch
-
-
-* Build RPM with patched .spec file::
-
-    $ rpmbuild -ba pcrunner.spec
+    $ rpmbuild -tb pcrunner-0.2.0.tar.gz
 
 
 * Install RPM::
@@ -192,18 +164,18 @@ Linux RPM
 
 * Edit configuration files::
 
-    # vim /etc/pcrunner/pcrunner.yml
-    # vim /etc/pcrunner/commands.yml
+    $ sudo vim /etc/pcrunner/pcrunner.yml
+    $ sudo vim /etc/pcrunner/commands.yml
 
 
 * Check the config::
 
-    # chkconfig pcrunner on
+    $ sudo chkconfig pcrunner on
 
 
 * Start the service::
 
-    # service pcrunner start
+    $ sudo service pcrunner start
 
 
 .. _Python 2.7.6 Windows X86-64 Installer: http://legacy.python.org/ftp//python/2.7.6/python-2.7.6.amd64.msi
