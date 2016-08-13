@@ -9,4 +9,4 @@ pcrunner
 Main package for Passive Check Runner
 """
 
-__version__ = '0.2.0'
+__version__ = 'version 0.2.1'
