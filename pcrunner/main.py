@@ -565,7 +565,7 @@ class PassiveCheckRunner(object):
 
         # Put 'None's at the end of the start_queue
         # to signal thread funtion to stop.
-        for i in xrange(self.max_procs):
+        for i in range(self.max_procs):
             self.start_queue.put(None)
 
         # Start threads
