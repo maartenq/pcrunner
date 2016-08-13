@@ -19,17 +19,13 @@ Requires: python-argparse,PyYAML
 BuildRequires: python-setuptools
 
 %description
-Pcrunner
-========
-
-Pcrunner (Passive Checks Runner) is a daemon and service that periodically runs
+Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
 `NSCAweb`_ server.
 
-* Documentation: http://pcrunner.readthedocs.io/en/latest/
-* GitHub: https://github.com/maartenq/pcrunner
-* PyPI: not yet
-* BSD license
+
+* Free software: ISC license
+* Documentation: https://pcrunner.readthedocs.io.
 
 Features
 --------
@@ -50,18 +46,24 @@ Installation
 http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
-TODO
------
-
-* More Tests.
-* Beter documenation.
-
 .. _NSCAweb: https://github.com/smetj/nscaweb
 .. _Nagios: http://www.nagios.org/
 .. _Icinga: http://www.icinga.org/
 
 
 .. :changelog:
+
+0.2.3 (2016-08-13)
+------------------
+
+* Travis/tox fix
+
+
+0.2.2 (2016-08-13)
+------------------
+
+*  ISC License
+
 
 0.2.1 (2016-08-13)
 ------------------
@@ -73,6 +75,7 @@ TODO
 ------------------
 
 * First release on PyPI.
+
 
 %prep
 %setup -n %{name}-%{unmangled_version}
