@@ -2,10 +2,15 @@
 History
 =======
 
+0.2.8 (2016-08-20)
+------------------
+
+* Updated docs
+
 0.2.7 (2016-08-20)
 ------------------
 
-* Updated  project links.
+* Updated project links.
 
 
 0.2.6 (2016-08-20)

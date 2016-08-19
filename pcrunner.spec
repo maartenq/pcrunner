@@ -52,6 +52,17 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
 .. :changelog:
+0.2.8 (2016-08-20)
+------------------
+
+* Updated docs
+
+0.2.7 (2016-08-20)
+------------------
+
+* Updated project links.
+
+
 0.2.6 (2016-08-20)
 ------------------
 
@@ -92,6 +103,7 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 ------------------
 
 * First release on PyPI.
+
 
 %prep
 %setup -n %{name}-%{unmangled_version}
