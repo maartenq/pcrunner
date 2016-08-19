@@ -1,6 +1,6 @@
 %define name pcrunner
-%define version 0.2.5
-%define unmangled_version 0.2.5
+%define version 0.2.6
+%define unmangled_version 0.2.6
 %define release 1
 
 Summary: Pcrunner (Passive Check Runner)
@@ -52,6 +52,23 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
 .. :changelog:
+0.2.6 (2016-08-20)
+------------------
+
+* Fixed ISSUE#4: commands file with extra white lines.
+
+
+0.2.5 (2016-08-20)
+------------------
+
+* Updated Python installation documentation with new versions.
+
+
+0.2.4 (2016-08-13)
+------------------
+
+* xrange -> range for python3 compatibility.
+
 
 0.2.3 (2016-08-13)
 ------------------
@@ -75,7 +92,6 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 ------------------
 
 * First release on PyPI.
-
 
 %prep
 %setup -n %{name}-%{unmangled_version}

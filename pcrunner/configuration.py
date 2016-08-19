@@ -154,40 +154,37 @@ class Config(dict):
             self.update(yaml_dict)
 
 
-def read_check_commands_txt(file_name):
+def read_check_commands_txt(fd):
     check_command_list = []
-    try:
-        with open(file_name, 'r') as fd:
-            commands = fd.read()
-    except Exception:
-        logger.error("Can't open file: %s", file_name)
-    else:
-        check_command_list = [
-            {
-                'result_type': 'PROCESS_{0}_CHECK_RESULT'.format(y[0]),
-                'name': y[1],
-                'command': ' '.join(y[2:])
-            } for y in (x.split('|') for x in commands.splitlines())
-        ]
+    command_txt = fd.read()
+    check_command_list = [
+        {
+            'result_type': 'PROCESS_{0}_CHECK_RESULT'.format(y[0]),
+            'name': y[1],
+            'command': ' '.join(y[2:])
+        } for y in (x.split('|') for x in command_txt.splitlines() if x)
+    ]
     return check_command_list
 
 
-def read_check_commands_yaml(file_name):
+def read_check_commands_yaml(fd):
     check_command_list = []
     try:
-        with open(file_name, 'r') as fd:
-            try:
-                check_command_list = yaml.safe_load(fd)
-            except yaml.scanner.ScannerError:
-                logger.error('Not a valid YAML file: %s', file_name)
-    except IOError:
-        logger.error("Can't open file: %s", file_name)
+        check_command_list = yaml.safe_load(fd)
+    except yaml.scanner.ScannerError:
+        logger.error('Invalid YAML in command file.')
     return check_command_list
 
 
-def read_check_commands(command_file_name):
-    file_name, file_extention = os.path.splitext(command_file_name)
-    if file_extention == '.txt':
-        return read_check_commands_txt(command_file_name)
-    else:
-        return read_check_commands_yaml(command_file_name)
+def read_check_commands(command_filename):
+    check_command_list = []
+    file_name, file_extention = os.path.splitext(command_filename)
+    try:
+        with open(command_filename, 'r') as fd:
+            if file_extention == '.txt':
+                check_command_list = read_check_commands_txt(fd)
+            else:
+                check_command_list = read_check_commands_yaml(fd)
+    except IOError as err:
+        logger.error(str(err))
+    return check_command_list
