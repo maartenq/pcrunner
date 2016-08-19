@@ -48,7 +48,7 @@ if sys.platform == 'win32':
 
 setup(
     name='pcrunner',
-    version='0.2.8',
+    version='0.2.9',
     description='Pcrunner (Passive Checks Runner)',
     long_description=readme + '\n\n' + history,
     author='Maarten Diemel',

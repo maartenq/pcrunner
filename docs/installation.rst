@@ -45,7 +45,7 @@ Windows
 
 * Install *pcrunner* as Windows Service
 
-    * Go to folder ``C:\Python27\Lib\site-packages\pcrunner-0.2.8-py2.7.egg\pcrunner``
+    * Go to folder ``C:\Python27\Lib\site-packages\pcrunner-0.2.9-py2.7.egg\pcrunner``
     * Shift-right-click
     * Click *Open command window here*
     * Run::
@@ -55,7 +55,7 @@ Windows
 
 * Configure *pcrunner* as Windows Service
 
-    * Edit ``C:\Python27\Lib\site-packages\pcrunner-0.2.8-py2.7.egg\pcrunner\etc\pcrunner.yml``
+    * Edit ``C:\Python27\Lib\site-packages\pcrunner-0.2.9-py2.7.egg\pcrunner\etc\pcrunner.yml``
         * *nsca_web_url*
         * *nsca_web_username*
         * *nsca_web_password*
@@ -156,12 +156,12 @@ Linux RPM
 
 * Build RPM from tarball::
 
-    $ rpmbuild -tb pcrunner-0.2.8.tar.gz
+    $ rpmbuild -tb pcrunner-0.2.9.tar.gz
 
 
 * Install RPM::
 
-   $ sudo yum install ~/rpmbuild/RPMS/noarch/pcrunner-0.2.8-1.noarch.rpm
+   $ sudo yum install ~/rpmbuild/RPMS/noarch/pcrunner-0.2.9-1.noarch.rpm
 
 
 * Edit configuration files::
