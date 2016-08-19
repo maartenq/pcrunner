@@ -6,15 +6,15 @@ Installation
 Windows
 =======
 
-* Install *Python 2.7.6*
+* Install *Python 2.7.9*
 
-    * Download `Python 2.7.6 Windows X86-64 Installer`_
+    * Download `Python 2.7.9 Windows X86-64 Installer`_
     * Double click to run the installer.
 
 
 * Install *Python for Windows extensions*
 
-    * Download `pywin32-218.win-amd64-py2.7.exe`_
+    * Download `pywin32-220.win-amd64-py2.7.exe`_
     * Double click to run the installer.
 
 
@@ -178,9 +178,9 @@ Linux RPM
     $ sudo service pcrunner start
 
 
-.. _Python 2.7.6 Windows X86-64 Installer: http://legacy.python.org/ftp//python/2.7.6/python-2.7.6.amd64.msi
+.. _Python 2.7.9 Windows X86-64 Installer: https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi
 
-.. _pywin32-218.win-amd64-py2.7.exe: http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20218/pywin32-218.win-amd64-py2.7.exe?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520218%2F&ts=1388760155&use_mirror=netcologne
+.. _pywin32-220.win-amd64-py2.7.exe: http://downloads.sourceforge.net/project/pywin32/pywin32/Build%20220/pywin32-220.win-amd64-py2.7.exe?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fpywin32%2Ffiles%2Fpywin32%2FBuild%2520220%2F&ts=1471597280&use_mirror=freefr
 
 .. _ez_setup.py: https://bootstrap.pypa.io/ez_setup.py
 
