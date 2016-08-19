@@ -32,7 +32,9 @@ Windows
 * Install *pcrunner*
 
     * Download `master.zip`_::
-      curl -o master.zip https://codeload.github.com/maartenq/pcrunner/zip/master
+
+        curl -o master.zip https://codeload.github.com/maartenq/pcrunner/zip/master
+
     * Go to folder
     * Shift-right-click
     * Click *Open command window here*
