@@ -2,6 +2,12 @@
 History
 =======
 
+0.2.6 (2016-08-20)
+------------------
+
+* Fixed ISSUE#4: commands file with extra white lines.
+
+
 0.2.5 (2016-08-20)
 ------------------
 
