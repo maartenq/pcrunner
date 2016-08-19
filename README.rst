@@ -5,28 +5,35 @@ Pcrunner
 
 .. image:: https://img.shields.io/pypi/v/pcrunner.svg
         :target: https://pypi.python.org/pypi/pcrunner
+        :alt: pypi
 
 .. image:: https://img.shields.io/travis/maartenq/pcrunner.svg
         :target: https://travis-ci.org/maartenq/pcrunner
+        :alt: build
 
 .. image:: https://readthedocs.org/projects/pcrunner/badge/?version=latest
         :target: https://pcrunner.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+        :alt: docs
 
 .. image:: https://pyup.io/repos/github/maartenq/pcrunner/shield.svg
-     :target: https://pyup.io/repos/github/maartenq/pcrunner/
-     :alt: Updates
+        :target: https://pyup.io/repos/github/maartenq/pcrunner/
+        :alt: pyup
 
 .. image:: https://codecov.io/gh/maartenq/pcrunner/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/maartenq/pcrunner
+        :target: https://codecov.io/gh/maartenq/pcrunner
+        :alt: codecov
 
 Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
 `NSCAweb`_ server.
 
+* GitHub: https://github.com/maartenq/pcrunner
+* Free software: https://opensource.org/licenses/ISC
+* PyPi: https://pypi.python.org/pypi/pcrunner
+* Documentation: https://pcrunner.readthedocs.io/en/latest/
+* Travis CI: https://travis-ci.org/maartenq/pcrunner
+* Codecov: https://codecov.io/github/maartenq/pcrunner
 
-* Free software: ISC license
-* Documentation: https://pcrunner.readthedocs.io.
 
 Features
 --------
