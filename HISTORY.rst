@@ -2,6 +2,12 @@
 History
 =======
 
+0.2.5 (2016-08-20)
+------------------
+
+* Updated Python installation documentation with new versions.
+
+
 0.2.4 (2016-08-13)
 ------------------
 
