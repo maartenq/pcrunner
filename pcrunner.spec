@@ -52,6 +52,13 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
 .. :changelog:
+
+0.2.9 (2016-08-20)
+------------------
+
+* Update requirements: pytest -> 3.0.0
+
+
 0.2.8 (2016-08-20)
 ------------------
 
