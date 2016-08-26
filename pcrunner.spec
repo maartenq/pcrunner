@@ -1,6 +1,6 @@
 %define name pcrunner
-%define version 0.2.9
-%define unmangled_version 0.2.9
+%define version 0.2.10
+%define unmangled_version 0.2.10
 %define release 1
 
 Summary: Pcrunner (Passive Check Runner)
