@@ -2,10 +2,14 @@
 History
 =======
 
-0.2.9 (2016-08-20)
+0.2.9 (2016-08-26)
 ------------------
 
-* Update requirements: pytest -> 3.0.0
+* tox.ini updated
+* removed specific version for package requirements from setup.py.
+* readthedocs theme for local docs build.
+* OS-X and vim files in .gitignore
+* Update requirements: pytest -> 3.0.1
 
 
 0.2.8 (2016-08-20)
