@@ -13,13 +13,13 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'PyYAML==3.11',
+    'PyYAML',
 ]
 
 test_requirements = [
-    'pytest==3.0.0',
-    'pytest-cov==2.3.1',
-    'tox==2.3.1',
+    'pytest',
+    'pytest',
+    'tox',
 ]
 
 # Add Python 2.6-specific dependencies
