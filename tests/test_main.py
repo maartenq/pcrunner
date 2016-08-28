@@ -2,33 +2,35 @@
 # vim: ts=4 et sw=4 sts=4 ft=python fenc=UTF-8 ai
 # tests/test_pcrunner.py
 
+import pytest
+
 from pcrunner.main import Check
 from pcrunner.main import parse_pcrunner_args
 
+@pytest.fixture()
+def check():
+    return Check(
+        'PROCESS_SERVICE_CHECK_RESULT',
+        'dummy check',
+        '/usr/local/bin/check_dummy 0 -s 3',
+        'localhost',
+    )
 
-class Test_Check(object):
-    def setup_class(self):
-        self.check = Check(
-            'PROCESS_SERVICE_CHECK_RESULT',
-            'dummy check',
-            '/usr/local/bin/check_dummy 0 -s 3',
-            'localhost',
-        )
 
-    def test_Check_attributes(self):
-        assert self.check.result_type == 'PROCESS_SERVICE_CHECK_RESULT'
-        assert self.check.name == 'dummy check'
-        assert self.check.command == '/usr/local/bin/check_dummy 0 -s 3'
-        assert self.check.hostname == 'localhost'
-        assert self.check.pid is None
-        assert self.check.process is None
-        assert self.check.returncode == 3
-        assert self.check.terminated is False
-        assert self.check.stdout == ''
-        assert self.check.stderr == ''
-        assert self.check.performance_data == ''
-        assert self.check.starttime == 0
-        assert self.check.endtime == 0
+def test_Check_attributes(check):
+    assert check.result_type == 'PROCESS_SERVICE_CHECK_RESULT'
+    assert check.name == 'dummy check'
+    assert check.command == '/usr/local/bin/check_dummy 0 -s 3'
+    assert check.hostname == 'localhost'
+    assert check.pid is None
+    assert check.process is None
+    assert check.returncode == 3
+    assert check.terminated is False
+    assert check.stdout == ''
+    assert check.stderr == ''
+    assert check.performance_data == ''
+    assert check.starttime == 0
+    assert check.endtime == 0
 
 
 def test_parse_pcrunners_args_short():
