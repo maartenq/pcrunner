@@ -2,8 +2,15 @@
 History
 =======
 
-0.2.10 (2016-08-26)
+0.3.0 (2016-09-09)
 ------------------
+
+* Added `--no-daemon` option for starting pcrunner's run loop in foreground.
+* dev requirements updates
+
+
+0.2.10 (2016-08-26)
+-------------------
 
 * tox.ini updated
 * removed specific version for package requirements from setup.py.
