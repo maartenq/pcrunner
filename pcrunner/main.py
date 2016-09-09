@@ -851,10 +851,16 @@ def parse_pcrunner_args(args):
     )
     # start /stop daemon arguments
     parser.add_argument(
-        'daemon',
+        'runloop',
         choices=('start', 'stop'),
         nargs='?',
-        help='Start or stop %(prog)s as daemon',
+        help='Start or stop %(prog)s runloop',
+    )
+    parser.add_argument(
+        '-a',
+        '--no-daemon',
+        action='store_true',
+        help='Run %(prog)s in foreground'
     )
     parser.add_argument(
         '-v',
@@ -910,14 +916,20 @@ def main():
 
     logger.info('Initialize Passive Check Runner: %s', pcrunner)
 
-    if args.daemon:
+    if args.runloop:
         if os.name == 'posix':
-            # Run or stop daemon
-            daemon = PassiveCheckRunnerDaemon(pcrunner)
-            if args.daemon == 'start':
-                return daemon.start()
-            elif args.daemon == 'stop':
-                return daemon.stop()
+            if args.no_daemon is False:
+                daemon = PassiveCheckRunnerDaemon(pcrunner)
+            if args.runloop == 'start':
+                if args.no_daemon is True:
+                    pcrunner.run()
+                else:
+                    return daemon.start()
+            elif args.runloop == 'stop':
+                if args.no_daemon is True:
+                    raise NotImplementedError
+                else:
+                    return daemon.stop()
         else:
             logger.error(
                 'Running as daemon on implemented on Posix systems. '
@@ -925,7 +937,7 @@ def main():
                 'under Windows as a Service.'
             )
     else:
-        # No daemon, run once
+        # run once
         return pcrunner.start()
 
 
