@@ -7,6 +7,7 @@ import pytest
 from pcrunner.main import Check
 from pcrunner.main import parse_pcrunner_args
 
+
 @pytest.fixture()
 def check():
     return Check(
