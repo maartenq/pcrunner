@@ -76,10 +76,13 @@ def test_parse_pcrunners_args_short():
         'max_line_size': 442,
         'log_file': '/var/log/logfile.log',
         'verbose': True,
-        'daemon': 'stop',
+        'runloop': 'stop',
+        'no_daemon': False,
         'version': False,
     }
 
+
+def test_parse_pcrunners_args_long():
     '''
     Test the long command-line arguments to pcrunner.
     '''
@@ -121,7 +124,56 @@ def test_parse_pcrunners_args_short():
         'max_line_size': 442,
         'log_file': '/var/log/logfile.log',
         'verbose': True,
-        'daemon': 'start',
+        'runloop': 'start',
+        'no_daemon': False,
+        'version': False,
+    }
+
+
+def test_parse_pcrunners_args_no_daemon():
+    '''
+    Test the long command-line arguments to pcrunner.
+    '''
+    args = parse_pcrunner_args(
+        [
+            '--config-file', '/etc/config.yml',
+            '--nsca_web_url', 'http://nagios.example.com:5668/queue',
+            '--nsca-web-username', 'john',
+            '--nsca-web-password', 'secret03',
+            '--command-file', '/etc/commandfile.yml',
+            '--hostname', 'server.example.com',
+            '--interval', '300',
+            '--max-procs', '4',
+            '--lines-per-post', '500',
+            '--result-file', '/var/spool/pcrunner.res',
+            '--result-dir', '/var/spool/pcrunner/resultstuf',
+            '--pid-file', '/var/run/pidfile.pid',
+            '--http-timeout', '5',
+            '--max-line-size', '442',
+            '--log-file', '/var/log/logfile.log',
+            '--verbose',
+            '--no-daemon',
+        ]
+    )
+    assert vars(args) == {
+        'config_file': '/etc/config.yml',
+        'nsca_web_url': 'http://nagios.example.com:5668/queue',
+        'nsca_web_username': 'john',
+        'nsca_web_password': 'secret03',
+        'command_file': '/etc/commandfile.yml',
+        'hostname': 'server.example.com',
+        'interval': 300,
+        'max_procs': 4,
+        'lines_per_post': 500,
+        'result_file': '/var/spool/pcrunner.res',
+        'result_dir': '/var/spool/pcrunner/resultstuf',
+        'pid_file': '/var/run/pidfile.pid',
+        'http_timeout': 5,
+        'max_line_size': 442,
+        'log_file': '/var/log/logfile.log',
+        'verbose': True,
+        'runloop': None,
+        'no_daemon': True,
         'version': False,
     }
 
@@ -134,7 +186,7 @@ def test_parse_pcrunners_args_empty():
     assert vars(args) == {
         'command_file': None,
         'config_file': None,
-        'daemon': None,
+        'runloop': None,
         'hostname': None,
         'http_timeout': None,
         'interval': None,
@@ -150,4 +202,5 @@ def test_parse_pcrunners_args_empty():
         'result_file': None,
         'verbose': False,
         'version': False,
+        'no_daemon': False,
     }
