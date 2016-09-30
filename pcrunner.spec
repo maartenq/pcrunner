@@ -52,11 +52,27 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
 .. :changelog:
-
-0.2.9 (2016-08-20)
+0.3.1 (2016-09-30)
 ------------------
 
-* Update requirements: pytest -> 3.0.0
+* dev requirements updates
+
+
+0.3.0 (2016-09-09)
+------------------
+
+* Added `--no-daemon` option for starting pcrunner's run loop in foreground.
+* dev requirements updates
+
+
+0.2.10 (2016-08-26)
+-------------------
+
+* tox.ini updated
+* removed specific version for package requirements from setup.py.
+* readthedocs theme for local docs build.
+* OS-X and vim files in .gitignore
+* Update requirements: pytest -> 3.0.1
 
 
 0.2.8 (2016-08-20)
