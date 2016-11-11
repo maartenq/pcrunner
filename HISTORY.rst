@@ -2,6 +2,13 @@
 History
 =======
 
+0.3.3 (2016-11-11)
+------------------
+
+* dev requirements updates
+* docs: download from `GitHub`
+
+
 0.3.2 (2016-10-14)
 ------------------
 
