@@ -6,19 +6,19 @@ Installation
 Windows
 =======
 
-* Install *Python 2.7.9*
+#. Install *Python 2.7.9*
 
     * Download `Python 2.7.9 Windows X86-64 Installer`_
     * Double click to run the installer.
 
 
-* Install *Python for Windows extensions*
+#. Install *Python for Windows extensions*
 
     * Download `pywin32-220.win-amd64-py2.7.exe`_
     * Double click to run the installer.
 
 
-* Install *Setuptools*
+#. Install *Setuptools*
 
     * Download `ez_setup.py`_
     * Go to folder
@@ -29,7 +29,7 @@ Windows
         C:\Python27\python.exe ez_setup.py
 
 
-* Install *pcrunner*
+#. Install *pcrunner*
 
     * Download `master.zip`_::
 
@@ -43,7 +43,7 @@ Windows
         C:\Python27\Scripts\easy_install.exe master.zip
 
 
-* Install *pcrunner* as Windows Service
+#. Install *pcrunner* as Windows Service
 
     * Go to folder ``C:\Python27\Lib\site-packages\pcrunner-0.3.2-py2.7.egg\pcrunner``
     * Shift-right-click
@@ -53,7 +53,7 @@ Windows
         C:\Python27\python.exe windows_service.py install
 
 
-* Configure *pcrunner* as Windows Service
+#. Configure *pcrunner* as Windows Service
 
     * Edit ``C:\Python27\Lib\site-packages\pcrunner-0.3.2-py2.7.egg\pcrunner\etc\pcrunner.yml``
         * *nsca_web_url*
@@ -61,7 +61,7 @@ Windows
         * *nsca_web_password*
 
 
-* Start *pcrunner* as Windows Service
+#. Start *pcrunner* as Windows Service
 
     * *Start* -> *Administrative Tools* -> *Services*
     * Select *pcrunner*
@@ -81,32 +81,32 @@ Installation on Fedora/RH/Centos/SL
       command line.
 
 
-* Download *pcrunner*::
+#. Download *pcrunner*::
 
     # curl -O https://github.com/maartenq/pcrunner/archive/master.zip
 
 
-* Install python-virtualenv_::
+#. Install python-virtualenv_::
 
     # yum install python-virtualenv
 
 
-* Make virtual environment::
+#. Make virtual environment::
 
     # virtualenv /<path>/<to>/<virtualenv_dir>
 
 
-* Make virtual environment active::
+#. Make virtual environment active::
 
     # source /<path>/<to>/<virtualenv_dir>/bin/activate
 
 
-* Install *pcrunner*::
+#. Install *pcrunner*::
 
     (virtenv)# pip install master.zip
 
 
-* Install configuration files::
+#. Install configuration files::
 
     # mkdir /etc/pcrunner
     # mkdir /var/spool/pcrunner
@@ -115,18 +115,18 @@ Installation on Fedora/RH/Centos/SL
     # install -m 755 /<path>/<to>/<virtualenv_dir>/lib/python2.6/site-packages/pcrunner/etc/pcrunner_rh_init /etc/init.d/
 
 
-* Edit configuration files::
+#. Edit configuration files::
 
     # vim /etc/pcrunner/pcrunner.yml
     # vim /etc/pcrunner/commands.yml
 
 
-* Check the config::
+#. Check the config::
 
     # chkconfig pcrunner on
 
 
-* Start the service::
+#. Start the service::
 
     # service pcrunner start
 
@@ -134,48 +134,50 @@ Installation on Fedora/RH/Centos/SL
 Linux RPM
 =========
 
-* Install packages for RPM Build Environment::
+#. Install packages for RPM Build Environment::
 
     $ sudo yum install rpm-build
     $ sudo yum install python-devel
     $ sudo yum install python-setuptools
 
 
-* Create directories for RPM Build Environment::
+#. Create directories for RPM Build Environment::
 
     $ mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 
-* Create RPM macro file::
+#. Create RPM macro file::
 
     $ echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 
 
-* Download the lastest tarball from https://pypi.python.org/pypi/pcrunner
+#. Download pcrunner-0.3.2.tar.gz from `GitHub`::
+
+    $ curl -L -o pcrunner-0.3.2.tar.gz https://github.com/maartenq/pcrunner/archive/v0.3.2.tar.gz
 
 
-* Build RPM from tarball::
+#. Build RPM from tarball::
 
     $ rpmbuild -tb pcrunner-0.3.2.tar.gz
 
 
-* Install RPM::
+#. Install RPM::
 
    $ sudo yum install ~/rpmbuild/RPMS/noarch/pcrunner-0.3.2-1.noarch.rpm
 
 
-* Edit configuration files::
+#. Edit configuration files::
 
     $ sudo vim /etc/pcrunner/pcrunner.yml
     $ sudo vim /etc/pcrunner/commands.yml
 
 
-* Check the config::
+#. Check the config::
 
     $ sudo chkconfig pcrunner on
 
 
-* Start the service::
+#. Start the service::
 
     $ sudo service pcrunner start
 
