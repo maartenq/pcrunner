@@ -7,7 +7,7 @@ pip==9.0.1
 pytest-cov==2.4.0
 pytest==3.0.4
 sphinx-rtd-theme==0.1.9
-tox==2.4.1
+tox==2.5.0
 twine==1.8.1
 watchdog==0.8.3
 wheel==0.29.0
