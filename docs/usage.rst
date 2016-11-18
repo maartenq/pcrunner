@@ -11,19 +11,19 @@ line options.
 
 pcrunner command line arguments and options::
 
-    $ pcrunner -h
+    $ pcrunner --help
     usage: pcrunner [-h] [-c CONFIG_FILE] [-n NSCA_WEB_URL] [-u NSCA_WEB_USERNAME]
                     [-p NSCA_WEB_PASSWORD] [-o COMMAND_FILE] [-H HOSTNAME]
                     [-i INTERVAL] [-m MAX_PROCS] [-e LINES_PER_POST]
                     [-r RESULT_FILE] [-d RESULT_DIR] [-f PID_FILE]
-                    [-t HTTP_TIMEOUT] [-s MAX_LINE_SIZE] [-l LOG_FILE] [-v]
+                    [-t HTTP_TIMEOUT] [-s MAX_LINE_SIZE] [-l LOG_FILE] [-a] [-v]
                     [--version]
                     [{start,stop}]
 
     Passive Command Runner.
 
     positional arguments:
-      {start,stop}          Start or stop pcrunner as daemon
+      {start,stop}          Start or stop pcrunner runloop
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -60,6 +60,8 @@ pcrunner command line arguments and options::
                             per line.
       -l LOG_FILE, --log-file LOG_FILE
                             log file
+      -a, --no-daemon       Run pcrunner in foreground
       -v, --verbose         Show verbose info (level DEBUG).
       --version             Show version
+
 
