@@ -6,7 +6,7 @@ flake8==3.2.1
 pip==9.0.1
 pytest-cov==2.4.0
 pytest==3.0.5
-sphinx-rtd-theme==0.1.9
+sphinx-rtd-theme==0.2.1
 tox==2.5.0
 twine==1.8.1
 watchdog==0.8.3
