@@ -2,6 +2,12 @@
 History
 =======
 
+0.3.7 (2017-11-17)
+------------------
+
+* Fix: quotes in commands.txt and commands.txt seem to get ignored #82
+
+
 0.3.6 (2017-11-17)
 ------------------
 
