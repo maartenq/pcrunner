@@ -14,6 +14,7 @@ import itertools
 import logging
 import logging.handlers
 import os
+import shlex
 import stat
 import subprocess
 import sys
@@ -90,7 +91,7 @@ class Check(object):
             if os.name == 'nt':
                 cmd = self.command
             else:
-                cmd = self.command.split()
+                cmd = shlex.split(self.command, posix=False)
             # Start process
             self.process = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
