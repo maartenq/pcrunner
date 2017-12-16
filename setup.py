@@ -53,7 +53,7 @@ setup(
     zip_safe=False,
     keywords='pcrunner',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable'
         'Environment :: Console',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
@@ -63,9 +63,9 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Documentation :: Sphinx',
         'Topic :: Utilities',
     ],
