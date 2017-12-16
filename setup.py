@@ -35,7 +35,7 @@ setup(
     description='Pcrunner (Passive Checks Runner)',
     long_description=readme + '\n\n' + history,
     author='Maarten Diemel',
-    author_email='maarten@maartendiemel.nl',
+    author_email='ikmaarten@gmail.com',
     url='https://github.com/maartenq/pcrunner',
     scripts=['scripts/check_dummy.py'],
     packages=[

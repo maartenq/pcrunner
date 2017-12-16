@@ -21,7 +21,7 @@ Feedback
 ========
 
 If you have any suggestions or questions about **Passive Check Runner** feel
-free to mail me maarten@maartendiemel.nl
+free to mail me ikmaarten@gmail.com
 
 If you encounter any errors or problems with **Passive Check Runner**, please
 let me know!  Open an Issue_ at the `GitHub main repository`_.
