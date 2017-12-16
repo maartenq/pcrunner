@@ -53,6 +53,23 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 .. :changelog:
 
+0.3.7 (2017-11-17)
+------------------
+
+* Fix: quotes in commands.txt and commands.txt seem to get ignored #82
+
+
+0.3.6 (2017-11-17)
+------------------
+
+* dev requirements updates
+
+
+0.3.5 (2016-12-09)
+------------------
+
+* dev requirements updates
+* docs usage
 0.3.4 (2016-11-18)
 ------------------
 
