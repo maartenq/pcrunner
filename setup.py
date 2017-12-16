@@ -53,7 +53,7 @@ setup(
     zip_safe=False,
     keywords='pcrunner',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable'
         'Environment :: Console',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
