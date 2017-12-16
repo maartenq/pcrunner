@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # scripts/check_dummy.py
-# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=UTF-8
+# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 """
 A simple Nagios plugin for testing purposes.

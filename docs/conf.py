@@ -1,4 +1,4 @@
-# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=UTF-8
+# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 #
 # complexity documentation build configuration file, created by
 # sphinx-quickstart on Tue Jul  9 22:26:36 2013.
