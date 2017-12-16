@@ -89,5 +89,6 @@ class PassiveCheckRunnerService(win32serviceutil.ServiceFramework):
         # Fire the stop event
         win32event.SetEvent(self.hWaitStop)
 
+
 if __name__ == '__main__':
     win32serviceutil.HandleCommandLine(PassiveCheckRunnerService)
