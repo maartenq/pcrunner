@@ -71,13 +71,13 @@ python setup.py build
 %install
 python setup.py install --single-version-externally-managed -O1 \
     --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
-{%__mkdir} -p %{buildroot}/var/spool/pcrunner
-{%__mkdir} -p %{buildroot}%{_sysconfdir}/%{name}
-{%__install} -m 0644 %{name}/etc/commands.txt \
+%{__mkdir} -p %{buildroot}/var/spool/pcrunner
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/%{name}
+%{__install} -m 0644 %{name}/etc/commands.txt \
     %{buildroot}%{_sysconfdir}/%{name}/commands.txt
-{%__install} -m 0644 %{name}/etc/commands.yml \
+%{__install} -m 0644 %{name}/etc/commands.yml \
     %{buildroot}%{_sysconfdir}/%{name}/commands.yml
-{%__install} -m 0640 %{name}/etc/pcrunner.yml \
+%{__install} -m 0640 %{name}/etc/pcrunner.yml \
     %{buildroot}%{_sysconfdir}/%{name}/pcrunner.yml
 
 %if %{use_systemd}
@@ -87,7 +87,7 @@ python setup.py install --single-version-externally-managed -O1 \
     %{buildroot}%{_unitdir}/%{name}.service
 %else
 # install SYSV init stuff
-{%__install} -m 0755 init/%{name} %{buildroot}%{_initrddir}/%{name}
+%{__install} -m 0755 init/%{name} %{buildroot}%{_initrddir}/%{name}
 %endif
 
 %clean
