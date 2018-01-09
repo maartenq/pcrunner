@@ -24,8 +24,7 @@ Requires(postun): initscripts
 Requires(post): chkconfig
 Requires(preun): chkconfig
 %endif
-Requires: python-argparse,PyYAML
-BuildRequires: python-setuptools
+Requires: python-setuptools,python-argparse,PyYAML
 
 %description
 Pcrunner, Passive Checks Runner, is a daemon and service that periodically runs
@@ -58,8 +57,6 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 .. _NSCAweb: https://github.com/smetj/nscaweb
 .. _Nagios: http://www.nagios.org/
 .. _Icinga: http://www.icinga.org/
-
-
 
 
 %prep

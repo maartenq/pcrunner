@@ -5,7 +5,8 @@ After=network.target
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/pcrunner
+ExecStart=/usr/bin/pcrunner start
+ExecStop=/usr/bin/pcrunner stop
 PIDFile=/var/run/pcrunner.pid
 Restart=on-failure
 
