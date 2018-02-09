@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: ts=4 et sw=4 sts=4 ft=python fenc=UTF-8 ai
+# pcrunner/main.py
+# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 '''
 pcrunner.main
@@ -87,12 +87,12 @@ class Check(object):
         logger.debug('check %s: started at %s', self.name, self.starttime)
 
         try:
-            logger.debug('check %s: excecuting %s', self.name, self.command)
             if os.name == 'nt':
                 cmd = self.command
             else:
-                cmd = shlex.split(self.command, posix=False)
+                cmd = shlex.split(self.command, posix=True)
             # Start process
+            logger.debug('check %s: start subprocess %s', self.name, cmd)
             self.process = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except OSError as error:
@@ -108,7 +108,7 @@ class Check(object):
         else:
             # Procces started
             self.pid = self.process.pid
-            logger.debug('check %s: started with PID: %d', self.name, self.pid)
+            logger.debug('check %s: subprocess PID: %d', self.name, self.pid)
 
             # Wait for output
             stdout, stderr = self.process.communicate()

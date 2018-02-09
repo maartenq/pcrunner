@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # setup.py
-# -*- coding: utf-8 -*-
-# vim: ai et ts=4 sw=4 sts=4 fenc=UTF-8 ft=python
+# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 import sys
 from setuptools import setup
@@ -32,11 +31,11 @@ if sys.platform == 'win32':
 
 setup(
     name='pcrunner',
-    version='0.3.7',
+    version='0.3.8',
     description='Pcrunner (Passive Checks Runner)',
     long_description=readme + '\n\n' + history,
     author='Maarten Diemel',
-    author_email='maarten@maartendiemel.nl',
+    author_email='ikmaarten@gmail.com',
     url='https://github.com/maartenq/pcrunner',
     scripts=['scripts/check_dummy.py'],
     packages=[
@@ -54,7 +53,7 @@ setup(
     zip_safe=False,
     keywords='pcrunner',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable'
         'Environment :: Console',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
@@ -64,9 +63,9 @@ setup(
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Documentation :: Sphinx',
         'Topic :: Utilities',
     ],

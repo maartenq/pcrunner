@@ -14,7 +14,7 @@
 # hostname of local host (host that is being checked)
 # Default: <gethostname>
 #hostname: <gethostname>
-#
+
 # pid file
 # Default: /var/run/pcrunner.pid as root
 # or <OS tempdir>/pcrunner.pid'
@@ -48,7 +48,7 @@
 # Default: CPU count
 #max_procs: 2
 
-# Time interval between chekcs in seconds
+# Time interval between checks in seconds
 # Default: 60
 #interval: 60
 
