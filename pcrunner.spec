@@ -147,7 +147,7 @@ http://pcrunner.readthedocs.io/en/latest/installation.html
 
 
 %prep
-%setup -n %{name}-%{unmangled_version}
+%setup -n %{name}-%{version}
 
 %build
 python setup.py build
@@ -157,10 +157,10 @@ python setup.py install --single-version-externally-managed -O1 --root=$RPM_BUIL
 mkdir -p %{buildroot}/var/spool/pcrunner
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mkdir -p %{buildroot}/etc/rc.d/init.d
-install -m 0644 %{_builddir}/%{name}-%{unmangled_version}/%{name}/etc/commands.txt %{buildroot}%{_sysconfdir}/%{name}/commands.txt
-install -m 0644 %{_builddir}/%{name}-%{unmangled_version}/%{name}/etc/commands.yml %{buildroot}%{_sysconfdir}/%{name}/commands.yml
-install -m 0640 %{_builddir}/%{name}-%{unmangled_version}/%{name}/etc/pcrunner.yml %{buildroot}%{_sysconfdir}/%{name}/pcrunner.yml
-install -m 0755 %{_builddir}/%{name}-%{unmangled_version}/%{name}/etc/pcrunner.init.sh %{buildroot}/etc/rc.d/init.d/pcrunner
+install -m 0644 %{_builddir}/%{name}-%{version}/%{name}/etc/commands.txt %{buildroot}%{_sysconfdir}/%{name}/commands.txt
+install -m 0644 %{_builddir}/%{name}-%{version}/%{name}/etc/commands.yml %{buildroot}%{_sysconfdir}/%{name}/commands.yml
+install -m 0640 %{_builddir}/%{name}-%{version}/%{name}/etc/pcrunner.yml %{buildroot}%{_sysconfdir}/%{name}/pcrunner.yml
+install -m 0755 %{_builddir}/%{name}-%{version}/%{name}/etc/pcrunner.init.sh %{buildroot}/etc/rc.d/init.d/pcrunner
 
 %clean
 rm -rf $RPM_BUILD_ROOT
