@@ -53,7 +53,8 @@ setup(
     zip_safe=False,
     keywords='pcrunner',
     classifiers=[
-        'Development Status :: 5 - Production/Stable'
+        'Development Status :: 5 - Production/Stable',
+        'Classifier: Environment :: Console (Text Based)',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Natural Language :: English',
