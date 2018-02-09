@@ -54,7 +54,6 @@ setup(
     keywords='pcrunner',
     classifiers=[
         'Development Status :: 5 - Production/Stable'
-        'Environment :: Console',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Natural Language :: English',
