@@ -1,5 +1,5 @@
 %global name pcrunner
-%global version 0.3.7
+%global version 0.3.8
 %global release 1
 
 Summary: Pcrunner (Passive Check Runner)
