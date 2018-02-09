@@ -90,7 +90,7 @@ class Check(object):
             if os.name == 'nt':
                 cmd = self.command
             else:
-                cmd = shlex.split(self.command, posix=False)
+                cmd = shlex.split(self.command, posix=True)
             # Start process
             logger.debug('check %s: start subprocess %s', self.name, cmd)
             self.process = subprocess.Popen(
