@@ -1,6 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim: ts=4 et sw=4 sts=4 ft=python fenc=UTF-8 ai
+# pcrunner/windows_service.py
+# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 '''
 pcrunner.windows_service
@@ -89,6 +88,7 @@ class PassiveCheckRunnerService(win32serviceutil.ServiceFramework):
         self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
         # Fire the stop event
         win32event.SetEvent(self.hWaitStop)
+
 
 if __name__ == '__main__':
     win32serviceutil.HandleCommandLine(PassiveCheckRunnerService)

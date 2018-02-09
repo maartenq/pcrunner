@@ -1,31 +1,29 @@
-%define name pcrunner
-%define version 0.3.7
-%define unmangled_version 0.3.7
-%define release 1
+%global name pcrunner
+%global version 0.3.7
+%global release 1
 
 Summary: Pcrunner (Passive Check Runner)
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{unmangled_version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 License: ISCL
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix: %{_prefix}
 BuildArch: noarch
-Vendor: Maarten Diemel <maarten@maartendiemel.nl>
+Vendor: Maarten <ikmaarten@gmail.com>
 Url: https://github.com/maartenq/pcrunner
-Requires: python-argparse,PyYAML
-BuildRequires: python-setuptools
+Requires: python-setuptools,python-argparse,PyYAML
 
 %description
-Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
+Pcrunner, Passive Checks Runner, is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
 `NSCAweb`_ server.
 
 
 * Free software: ISC license
-* Documentation: https://pcrunner.readthedocs.io.
+* Documentation: https://pcrunner.readthedocs.io/en/latest/
 
 Features
 --------
