@@ -670,7 +670,7 @@ def get_syslog_socket_or_win32():
         return None
 
 
-def setup_logging(log_file=None, verbose=False):
+def setup_logging(log_file=None, verbose=False, console=False):
     if verbose:
         log_level = logging.DEBUG
     else:
@@ -681,26 +681,25 @@ def setup_logging(log_file=None, verbose=False):
         datefmt='%b %d %H:%M:%S',
     )
 
+    root_logger = logging.getLogger()
+    root_logger.setLevel(log_level)
+
     if log_file:
-        # File Handler
-        handler = logging.handlers.RotatingFileHandler(
+        file_handler = logging.handlers.RotatingFileHandler(
             log_file,
             mode='a',
             maxBytes=4194304,
             backupCount=4,
         )
-        handler.setFormatter(log_format)
-    else:
-        # Console Handler
-        handler = logging.StreamHandler()
-        handler.setFormatter(log_format)
+        file_handler.setFormatter(log_format)
+        file_handler.setLevel(log_level)
+        root_logger.addHandler(file_handler)
 
-    handler.setLevel(log_level)
-
-    # Add to root logger
-    root_logger = logging.getLogger()
-    root_logger.setLevel(log_level)
-    root_logger.addHandler(handler)
+    if console:
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(log_format)
+        console_handler.setLevel(log_level)
+        root_logger.addHandler(console_handler)
 
 
 def remove_root_logger_handlers():
@@ -710,14 +709,13 @@ def remove_root_logger_handlers():
     root_logger.handlers = []
 
 
-def setup_syslog_with_config_opts(log_file, verbose, syslog_server,
-                                  syslog_port):
+def setup_logging_with_config_opts(no_daemon, log_file, verbose,
+                                   syslog_server, syslog_port):
     # remove existing handlers
     remove_root_logger_handlers()
 
-    if log_file or verbose:
-        # Log only to file
-        setup_logging(log_file, verbose)
+    if log_file or no_daemon:
+        setup_logging(log_file, verbose, no_daemon)
 
     else:
         # No debug to syslog (seems not to work anyway)
@@ -900,10 +898,10 @@ def main():
         logger.debug('%-20s:%s', key, value)
 
     # Get logging args
-    log_args = config.subset('log_file', 'verbose', 'syslog_server',
-                             'syslog_port')
+    log_args = config.subset('no_daemon', 'log_file', 'verbose',
+                             'syslog_server', 'syslog_port')
     # Logging with config opts
-    setup_syslog_with_config_opts(**log_args)
+    setup_logging_with_config_opts(**log_args)
 
     # Get PassiveCheckRunner args
     pcrunner_args = config.subset('nsca_web_url', 'nsca_web_username',
