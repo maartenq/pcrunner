@@ -130,7 +130,7 @@ if [ "$1" -ge "1" ]; then
 %endif
 
 %changelog
-* Fri Feb  9 2018 Maarten <ikmaarten@gmail.com> - 0.3.9-1
+* Fri Jul 14 2018 Maarten <ikmaarten@gmail.com> - 0.3.9-1
 - Added systemd service file for Fedora >=18 Centos >=7
 * Fri Feb  9 2018 Maarten <ikmaarten@gmail.com> - 0.3.8-1
 - Fix: issue #83

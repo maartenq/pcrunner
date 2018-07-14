@@ -2,6 +2,11 @@
 History
 =======
 
+0.3.9 (2018-07-14)
+------------------
+
+* Added systemd service file for Fedora >=18 Centos >=7
+
 0.3.8 (2018-02-09)
 ------------------
 
