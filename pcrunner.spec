@@ -1,5 +1,5 @@
 %global name pcrunner
-%global version 0.3.9
+%global version 0.3.10
 %global release 1
 
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7)
