@@ -4,40 +4,40 @@ pcrunner package
 Submodules
 ----------
 
-pcrunner\.configuration module
-------------------------------
+pcrunner.configuration module
+-----------------------------
 
 .. automodule:: pcrunner.configuration
     :members:
     :undoc-members:
     :show-inheritance:
 
-pcrunner\.daemon module
------------------------
+pcrunner.daemon module
+----------------------
 
 .. automodule:: pcrunner.daemon
     :members:
     :undoc-members:
     :show-inheritance:
 
-pcrunner\.exception module
---------------------------
+pcrunner.exception module
+-------------------------
 
 .. automodule:: pcrunner.exception
     :members:
     :undoc-members:
     :show-inheritance:
 
-pcrunner\.main module
----------------------
+pcrunner.main module
+--------------------
 
 .. automodule:: pcrunner.main
     :members:
     :undoc-members:
     :show-inheritance:
 
-pcrunner\.windows\_service module
----------------------------------
+pcrunner.windows\_service module
+--------------------------------
 
 .. automodule:: pcrunner.windows_service
     :members:

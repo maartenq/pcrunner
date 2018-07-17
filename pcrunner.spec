@@ -84,6 +84,7 @@ python setup.py install --single-version-externally-managed -O1 \
     %{buildroot}%{_unitdir}/%{name}.service
 %else
 # install SYSV init stuff
+%{__mkdir} -p %{buildroot}%{_initrddir}
 %{__install} -m 0755 init/%{name} %{buildroot}%{_initrddir}/%{name}
 %endif
 
