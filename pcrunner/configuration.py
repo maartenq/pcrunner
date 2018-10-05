@@ -125,7 +125,7 @@ class Config(dict):
 
     def subset(self, *keys, **kwargs):
         '''
-        Return a sub set of Config dict of *keys
+        Return a sub set of Config dict of keys
         if kwargs also update the returned dictionary.
         '''
         _dict = dict((key, self.get(key)) for key in keys)
