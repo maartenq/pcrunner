@@ -14,6 +14,7 @@ import itertools
 import logging
 import logging.handlers
 import os
+import re
 import shlex
 import stat
 import subprocess
@@ -179,6 +180,20 @@ class Check(object):
     def elapsed(self):
         return time.time() - self.starttime
 
+    @property
+    def sanitized_output(self):
+        res = ' '.join(
+            (self.stdout, self.stderr, self.performance_data)).strip()
+        if '|' in res:
+            output, perf = res.split('|', 1)
+            s = re.search(r'.+=[\w\.;=]*', perf)
+            if s:
+                perf_sanitized = s.group()
+            else:
+                perf_sanitized = 'Performance data removed by pcrunner'
+            res = '{0}|{1}'.format(output, perf_sanitized)
+        return res
+
     def __str__(self):
         '''
         String representation in NSCA format
@@ -189,8 +204,7 @@ class Check(object):
             self.hostname,
             self.name,
             self.returncode,
-            ' '.join(
-                (self.stdout, self.stderr, self.performance_data)).strip(),
+            self.sanitized_output,
         )
 
 
