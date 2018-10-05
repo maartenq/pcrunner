@@ -2,12 +2,14 @@
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=UTF-8
 
 language: python
-python: 3.5
+python: 3.6
 env:
+  - TOXENV=py36
   - TOXENV=py35
   - TOXENV=py34
   - TOXENV=py27
   - TOXENV=flake8
+  - TOXENV=docs
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
