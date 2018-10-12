@@ -2,6 +2,17 @@
 History
 =======
 
+0.3.11 (2018-10-12)
+-------------------
+
+* Fix issue #94 Performance data 'sanitized' NSCAweb won't hang.
+
+0.3.10 (2018-07-17)
+-------------------
+
+* Fix RHEL 6 RPM build (make initrddir).
+
+
 0.3.10 (2018-07-17)
 -------------------
 
