@@ -59,6 +59,7 @@ class PassiveCheckRunnerDaemon(Daemon):
 
 
 class Check(object):
+
     def __init__(self, result_type, name, command, hostname):
         self.result_type = result_type
         self.name = name
@@ -105,7 +106,7 @@ class Check(object):
             self.end()
             self.returncode = 3
             self.stdout = ' '
-            self.stderr = unicode(error)
+            self.stderr = '{0}'.format(error)
             logger.error(
                 'check %s: failed: duration: %.4f command: %s'
                 'return code %d stdout: %s stderr: %s', self.name,
@@ -211,9 +212,6 @@ class Check(object):
             self.validated_data,
         )
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
 
 class CheckRun(object):
     def __init__(self, hostname):
@@ -266,9 +264,6 @@ class PassiveCheckRunner(object):
             self.interval,
             self.lines_per_post,
         )
-
-    def __str__(self):
-        return unicode(self).encode('utf-8')
 
     def get_checks(self):
         self.checks = []

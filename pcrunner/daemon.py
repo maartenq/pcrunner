@@ -72,9 +72,9 @@ class Daemon:
         # write pid_file
         atexit.register(self.delpid)
 
-        pid = unicode(os.getpid())
+        pid = os.getpid()
         with io.open(self.pid_file, 'w+', encoding='utf-8') as f:
-            f.write(pid + '\n')
+            f.write('%d\n' % pid)
 
     def delpid(self):
         '''
@@ -129,12 +129,12 @@ class Daemon:
                 os.kill(pid, signal.SIGTERM)
                 time.sleep(0.1)
         except OSError as err:
-            e = unicode(err.args)
+            e = '{0}'.format(err.args)
             if e.find("No such process") > 0:
                 if os.path.exists(self.pid_file):
                     os.remove(self.pid_file)
             else:
-                print(unicode(err.args))
+                print('{0}'.format(err.args))
                 sys.exit(1)
 
     def run(self):

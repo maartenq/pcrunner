@@ -41,9 +41,6 @@ class Check(object):
             ' '.join([self.stdout, self.stderr]).strip()
         )
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
 
 class RunCheck(object):
     def __init__(self, check, timeout):
@@ -62,9 +59,6 @@ class RunCheck(object):
                 self.time_start,
                 self.time_exec,
             )
-
-    def __str__(self):
-        return unicode(self).encode('utf-8')
 
     def start(self):
         self.time_start = time.time()
