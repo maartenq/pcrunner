@@ -6,6 +6,9 @@
 A wrapper for running nagios checks within a limited time.
 """
 
+from __future__ import unicode_literals
+from __future__ import print_function
+
 import shlex
 import subprocess
 import sys
@@ -25,7 +28,7 @@ class Check(object):
         self.stderr = ''
         self.stdout = ''
 
-    def __str__(self):
+    def __unicode__(self):
         '''
         String representation in NSCA format
         '''
@@ -38,6 +41,9 @@ class Check(object):
             ' '.join([self.stdout, self.stderr]).strip()
         )
 
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
 
 class RunCheck(object):
     def __init__(self, check, timeout):
@@ -48,7 +54,7 @@ class RunCheck(object):
         self.time_exec = 0
         self.pid = None
 
-    def __str__(self):
+    def __unicode__(self):
         return '{{"check_restult": "{0}", "pid": "{1}", "time_start": ' \
             '"{2:.0f}", "time_exec": "{3:.3f}"}}'.format(
                 self.check,
@@ -56,6 +62,9 @@ class RunCheck(object):
                 self.time_start,
                 self.time_exec,
             )
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
 
     def start(self):
         self.time_start = time.time()

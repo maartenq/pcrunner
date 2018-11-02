@@ -8,7 +8,10 @@ pcrunner.daemon
 
 Generic linux daemon base class for python 2.x/3.x.
 '''
+from __future__ import unicode_literals
+from __future__ import print_function
 
+import io
 import sys
 import os
 import time
@@ -58,9 +61,9 @@ class Daemon:
         # redirect standard file descriptors
         sys.stdout.flush()
         sys.stderr.flush()
-        si = open(os.devnull, 'r')
-        so = open(os.devnull, 'a+')
-        se = open(os.devnull, 'a+')
+        si = io.open(os.devnull, 'r')
+        so = io.open(os.devnull, 'a+')
+        se = io.open(os.devnull, 'a+')
 
         os.dup2(si.fileno(), sys.stdin.fileno())
         os.dup2(so.fileno(), sys.stdout.fileno())
@@ -69,8 +72,8 @@ class Daemon:
         # write pid_file
         atexit.register(self.delpid)
 
-        pid = str(os.getpid())
-        with open(self.pid_file, 'w+') as f:
+        pid = unicode(os.getpid())
+        with io.open(self.pid_file, 'w+', encoding='utf-8') as f:
             f.write(pid + '\n')
 
     def delpid(self):
@@ -86,7 +89,7 @@ class Daemon:
 
         # Check for a pid_file to see if the daemon already runs
         try:
-            with open(self.pid_file, 'r') as pf:
+            with io.open(self.pid_file, 'r', encoding='utf-8') as pf:
 
                 pid = int(pf.read().strip())
         except IOError:
@@ -109,7 +112,7 @@ class Daemon:
 
         # Get the pid from the pid file
         try:
-            with open(self.pid_file, 'r') as pf:
+            with io.open(self.pid_file, 'r', encoding='utf-8') as pf:
                 pid = int(pf.read().strip())
         except IOError:
             pid = None
@@ -126,12 +129,12 @@ class Daemon:
                 os.kill(pid, signal.SIGTERM)
                 time.sleep(0.1)
         except OSError as err:
-            e = str(err.args)
+            e = unicode(err.args)
             if e.find("No such process") > 0:
                 if os.path.exists(self.pid_file):
                     os.remove(self.pid_file)
             else:
-                print(str(err.args))
+                print(unicode(err.args))
                 sys.exit(1)
 
     def run(self):

@@ -9,8 +9,13 @@ pcrunner.main
 Main entry point for the pcrunner command.
 '''
 
+from __future__ import unicode_literals
+from __future__ import absolute_import
+from __future__ import print_function
+
 import argparse
 import itertools
+import io
 import logging
 import logging.handlers
 import os
@@ -100,7 +105,7 @@ class Check(object):
             self.end()
             self.returncode = 3
             self.stdout = ' '
-            self.stderr = str(error)
+            self.stderr = unicode(error)
             logger.error(
                 'check %s: failed: duration: %.4f command: %s'
                 'return code %d stdout: %s stderr: %s', self.name,
@@ -181,22 +186,21 @@ class Check(object):
         return time.time() - self.starttime
 
     @property
-    def sanitized_output(self):
+    def validated_data(self):
         res = ' '.join(
             (self.stdout, self.stderr, self.performance_data)).strip()
         if '|' in res:
             output, perf = res.split('|', 1)
             s = re.search(r'.+=[\w\.;=]*', perf)
             if s:
-                perf_sanitized = s.group()
+                res = '{0}|{1}'.format(output, s.group())
             else:
-                perf_sanitized = 'Performance data removed by pcrunner'
-            res = '{0}|{1}'.format(output, perf_sanitized)
+                res = output
         return res
 
-    def __str__(self):
+    def __unicode__(self):
         '''
-        String representation in NSCA format
+        Representation in NSCA format
         '''
         return '[{0:.0f}] {1};{2};{3};{4};{5}'.format(
             self.endtime,
@@ -204,8 +208,11 @@ class Check(object):
             self.hostname,
             self.name,
             self.returncode,
-            self.sanitized_output,
+            self.validated_data,
         )
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
 
 
 class CheckRun(object):
@@ -244,7 +251,7 @@ class PassiveCheckRunner(object):
         self.check_command_list = \
             configuration.read_check_commands(self.command_file)
 
-    def __str__(self):
+    def __unicode__(self):
         mesg = '<pcrunner nsca_web_url: {0} nsca_web_username: {1}'
         mesg += ' hostname: {2} command_file: {3} result_file: {4}'
         mesg += ' max_procs:{5} timeout:{6} interval:{7} lines_per_post:{8}>'
@@ -259,6 +266,9 @@ class PassiveCheckRunner(object):
             self.interval,
             self.lines_per_post,
         )
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
 
     def get_checks(self):
         self.checks = []
@@ -322,11 +332,14 @@ class PassiveCheckRunner(object):
         if len(results) > self.lines_per_post * self.max_line_size:
             raise PostResultTooBig
         values = {
-            'username': self.nsca_web_username,
-            'password': self.nsca_web_password,
-            'input': results,
+            b'username': str(self.nsca_web_username),
+            b'password': str(self.nsca_web_password),
+            b'input': results.encode('utf-8')
         }
-        data = urlencode(values)
+        if PY3:
+            data = urlencode(values, encoding='utf-8')
+        else:
+            data = urlencode(values)
         data_len = len(data)
         headers = {
             'User-Agent': 'pcrunner',
@@ -356,7 +369,7 @@ class PassiveCheckRunner(object):
         failed checks in ``self.results_post_failed``.
         '''
         try:
-            with open(self.result_file) as fd:
+            with io.open(self.result_file, 'r', encoding='utf-8') as fd:
                 # There are results which are not posted in previous run.
                 # Try post them.
                 logger.debug('result file %s exists, try post old results',
@@ -406,7 +419,7 @@ class PassiveCheckRunner(object):
                 '{0}/{1}*'.format(self.result_dir, epoch_time_fmt)
             )
             for result_file in result_files:
-                with open(result_file, 'r') as fd:
+                with io.open(result_file, 'r', encoding='utf-8') as fd:
                     logger.debug('reading results from %s', result_file)
                     for line in fd.readlines():
                         if len(line) < self.max_line_size:
@@ -435,7 +448,7 @@ class PassiveCheckRunner(object):
             self.result_file,
         )
         try:
-            with open(self.result_file, 'w') as fd:
+            with io.open(self.result_file, 'w', encoding='utf-8') as fd:
                 fd.write(''.join(self.results_post_failed))
         except Exception as error:
             logger.error(error)

@@ -9,6 +9,9 @@ pcrunner.configuration
 Global configuration handling
 '''
 
+from __future__ import unicode_literals
+
+import io
 import logging
 import multiprocessing
 import os
@@ -140,7 +143,7 @@ class Config(dict):
         # Get defaults
         yaml_dict = {}
         try:
-            with open(self['config_file']) as fd:
+            with io.open(self['config_file'], 'r', encoding='utf-8') as fd:
                 try:
                     yaml_dict = yaml.safe_load(fd)
                 except yaml.scanner.ScannerError:
@@ -180,7 +183,7 @@ def read_check_commands(command_filename):
     check_command_list = []
     file_name, file_extention = os.path.splitext(command_filename)
     try:
-        with open(command_filename, 'r') as fd:
+        with io.open(command_filename, 'r', encoding='utf-8') as fd:
             if file_extention == '.txt':
                 check_command_list = read_check_commands_txt(fd)
             else:
