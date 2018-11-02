@@ -238,6 +238,8 @@ class PassiveCheckRunner(object):
             'pcrunner',
             self.hostname,
         )
+        self.current_check_results = []
+        self.check_results_external_commands = []
         # Get commands
         self.check_command_list = \
             configuration.read_check_commands(self.command_file)
