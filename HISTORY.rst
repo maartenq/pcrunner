@@ -2,10 +2,19 @@
 History
 =======
 
+0.4.0 (2018-11-03)
+-------------------
+
+* Legitimately, truly and undoubtedly fixed issue #94 (we assume™, for now).
+* Unicode all the way (like we never unicode before).
+* No hopes on Python < 2.7 compatibility
+
+
 0.3.11 (2018-10-12)
 -------------------
 
 * Fix issue #94 Performance data 'sanitized' NSCAweb won't hang.
+
 
 0.3.10 (2018-07-17)
 -------------------
