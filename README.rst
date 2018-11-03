@@ -15,10 +15,6 @@ Pcrunner
         :target: https://pcrunner.readthedocs.io/en/latest/?badge=latest
         :alt: docs
 
-.. image:: https://pyup.io/repos/github/maartenq/pcrunner/shield.svg
-        :target: https://pyup.io/repos/github/maartenq/pcrunner/
-        :alt: pyup
-
 .. image:: https://codecov.io/gh/maartenq/pcrunner/branch/master/graph/badge.svg
         :target: https://codecov.io/gh/maartenq/pcrunner
         :alt: codecov
