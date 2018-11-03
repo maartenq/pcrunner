@@ -188,6 +188,11 @@ class Check(object):
 
     @property
     def validated_data(self):
+        '''
+        Checks (loosely) if performance data is form of:
+        rx_errors=0;;;0;tx_errors=0;;;0;
+        Otherwise remove '|' and everything after.
+        '''
         res = ' '.join(
             (self.stdout, self.stderr, self.performance_data)).strip()
         if '|' in res:
@@ -197,6 +202,7 @@ class Check(object):
                 res = '{0}|{1}'.format(output, s.group())
             else:
                 res = output
+                logger.warning('removed performance data: | {0}', perf)
         return res
 
     def __unicode__(self):
@@ -322,19 +328,16 @@ class PassiveCheckRunner(object):
             self.current_check_results.append('{0}\n'.format(check))
 
     def post(self, lines):
-        results = ''.join(lines)
+        results = ''.join(lines).encode('utf-8')
         number_of_lines = len(lines)
         if len(results) > self.lines_per_post * self.max_line_size:
             raise PostResultTooBig
         values = {
-            b'username': str(self.nsca_web_username),
-            b'password': str(self.nsca_web_password),
-            b'input': results.encode('utf-8')
+            'username': self.nsca_web_username,
+            'password': self.nsca_web_password,
+            'input': results,
         }
-        if PY3:
-            data = urlencode(values, encoding='utf-8')
-        else:
-            data = urlencode(values)
+        data = urlencode(values).encode('utf-8')
         data_len = len(data)
         headers = {
             'User-Agent': 'pcrunner',
@@ -424,7 +427,7 @@ class PassiveCheckRunner(object):
                                 'line in result file {0} exceeds max length '
                                 'of {1})',
                                 result_file,
-                                self.max_line_size
+                                self.max_line_size,
                             )
                 try:
                     os.remove(result_file)
