@@ -2,6 +2,14 @@
 History
 =======
 
+0.4.1 (2018-11-03)
+-------------------
+
+* Have (result) data for urllib `urlencode` utf-8 encoded before (PY2) and
+  after (PY3).
+* Warn when performance data not validates (and gets removed).
+
+
 0.4.0 (2018-11-03)
 -------------------
 
