@@ -202,7 +202,7 @@ class Check(object):
                 res = '{0}|{1}'.format(output, s.group())
             else:
                 res = output
-                logger.warning('removed performance data: | {0}', perf)
+                logger.warning('removed performance data: | {0}', res)
         return res
 
     def __unicode__(self):
