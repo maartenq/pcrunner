@@ -2,6 +2,13 @@
 History
 =======
 
+0.4.2 (2018-11-12)
+-------------------
+
+* Fix bug in logging.warning.
+* Update Python package metadata.
+
+
 0.4.1 (2018-11-03)
 -------------------
 
