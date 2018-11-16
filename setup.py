@@ -32,13 +32,11 @@ if sys.platform == 'win32':
 setup(
     name='pcrunner',
     version='0.4.4',
-    summary='A module for running Passive Nagios/Icinga Checks',
-    description=readme + '\n\n' + history,
-    description_content_type='text/x-rst; charset=utf-8',
+    description='A module for running Passive Nagios/Icinga Checks',
+    long_description=readme + '\n\n' + history,
     author='Maarten',
     author_email='ikmaarten@gmail.com',
-    project_url='https://github.com/maartenq/pcrunner',
-    download_url='https://github.com/maartenq/pcrunner/archive/v0.4.3.tar.gz',
+    url='https://github.com/maartenq/pcrunner',
     scripts=['scripts/check_dummy.py'],
     packages=[
         'pcrunner',
