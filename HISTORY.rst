@@ -2,6 +2,12 @@
 History
 =======
 
+0.4.3 (2018-11-16)
+-------------------
+
+* Real Fix bug in logging.warning: wrong placeholder.
+
+
 0.4.2 (2018-11-12)
 -------------------
 

@@ -202,7 +202,7 @@ class Check(object):
                 res = '{0}|{1}'.format(output, s.group())
             else:
                 res = output
-                logger.warning('removed performance data: | {0}', res)
+                logger.warning('removed performance data: | %s', perf)
         return res
 
     def __unicode__(self):
@@ -522,7 +522,7 @@ class PassiveCheckRunner(object):
             exit_value[self.check_pcrunner.returncode],
             self.check_pcrunner.duration,
         )
-        logger.debug(self.check_pcrunner)
+        logger.debug('%s', self.check_pcrunner)
         # Add pcrunner's own result
         self.finished_queue.put(self.check_pcrunner)
         # Get results
