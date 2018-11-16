@@ -31,7 +31,7 @@ if sys.platform == 'win32':
 
 setup(
     name='pcrunner',
-    version='0.4.3',
+    version='0.4.4',
     summary='A module for running Passive Nagios/Icinga Checks',
     description=readme + '\n\n' + history,
     description_content_type='text/x-rst; charset=utf-8',
