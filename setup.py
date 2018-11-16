@@ -32,7 +32,7 @@ if sys.platform == 'win32':
 setup(
     metadata_version='2.1',
     name='pcrunner',
-    version='0.4.2',
+    version='0.4.3',
     platform=['Linux', 'Windows'],
     supported_platform=['EL6', 'EL7'],
     summary='A module for running Passive Nagios/Icinga Checks',
