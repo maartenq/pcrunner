@@ -30,18 +30,15 @@ if sys.platform == 'win32':
     requirements.append('pywin32')
 
 setup(
-    metadata_version='2.1',
     name='pcrunner',
     version='0.4.3',
-    platform=['Linux', 'Windows'],
-    supported_platform=['EL6', 'EL7'],
     summary='A module for running Passive Nagios/Icinga Checks',
     description=readme + '\n\n' + history,
-    description_content_type="text/x-rst; charset=UTF-8",
+    description_content_type='text/x-rst; charset=utf-8',
     author='Maarten',
-    author_email='Maarten <ikmaarten@gmail.com>',
+    author_email='ikmaarten@gmail.com',
     project_url='https://github.com/maartenq/pcrunner',
-    download_url="https://codeload.github.com/maartenq/pcrunner/zip/master",
+    download_url='https://github.com/maartenq/pcrunner/archive/v0.4.3.tar.gz',
     scripts=['scripts/check_dummy.py'],
     packages=[
         'pcrunner',
@@ -54,7 +51,7 @@ setup(
     },
     include_package_data=True,
     install_requires=requirements,
-    license="ISC license",
+    license='ISC license',
     zip_safe=False,
     keywords='pcrunner',
     classifiers=[
