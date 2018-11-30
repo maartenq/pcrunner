@@ -200,9 +200,14 @@ class Check(object):
             s = re.search(r'.+=[\w\.;=]*', perf)
             if s:
                 res = '{0}|{1}'.format(output, s.group())
+                logger.debug('YEAH: %s', res)
             else:
+                logger.warning(
+                    'check %s: invalid perf data: %s',
+                    self.name,
+                    res,
+                )
                 res = output
-                logger.warning('removed performance data: | %s', perf)
         return res
 
     def __unicode__(self):
