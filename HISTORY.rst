@@ -2,6 +2,13 @@
 History
 =======
 
+0.4.6 (2018-11-30)
+-------------------
+
+* Better logging for invalid perf data.
+* Update dev requirements.
+
+
 0.4.5 (2018-11-16)
 -------------------
 
