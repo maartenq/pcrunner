@@ -2,6 +2,14 @@
 History
 =======
 
+0.4.7 (2019-10-26)
+-------------------
+
+* Security update: Bump pyyaml from 3.12 to 5.1
+* Update requirements.
+* No tests for python 3.4
+
+
 0.4.6 (2018-11-30)
 -------------------
 
