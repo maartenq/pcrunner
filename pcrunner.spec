@@ -131,6 +131,8 @@ if [ "$1" -ge "1" ]; then
 %endif
 
 %changelog
+* Fri Mar 20 2020 Maarten <ikmaarten@gmail.com> - 0.4.8-1
+- Fix #96 passive host check results seem to processed as service check results
 * Fri Jul 14 2018 Maarten <ikmaarten@gmail.com> - 0.3.9-1
 - Added systemd service file for Fedora >=18 Centos >=7
 * Fri Feb  9 2018 Maarten <ikmaarten@gmail.com> - 0.3.8-1

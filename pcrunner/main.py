@@ -13,6 +13,8 @@ from __future__ import unicode_literals
 from __future__ import absolute_import
 from __future__ import print_function
 
+# from future.utils import python_2_unicode_compatible
+
 import argparse
 import itertools
 import io
@@ -59,7 +61,6 @@ class PassiveCheckRunnerDaemon(Daemon):
 
 
 class Check(object):
-
     def __init__(self, result_type, name, command, hostname):
         self.result_type = result_type
         self.name = name
@@ -67,7 +68,7 @@ class Check(object):
         self.hostname = hostname
         self.pid = None
         self.process = None
-        self.returncode = 3
+        self.status_code = 3
         self.terminated = False
         self.stdout = ''
         self.stderr = ''
@@ -104,13 +105,13 @@ class Check(object):
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except OSError as error:
             self.end()
-            self.returncode = 3
+            self.status_code = 3
             self.stdout = ' '
             self.stderr = '{0}'.format(error)
             logger.error(
                 'check %s: failed: duration: %.4f command: %s'
                 'return code %d stdout: %s stderr: %s', self.name,
-                self.duration, self.command, self.returncode, self.stdout,
+                self.duration, self.command, self.status_code, self.stdout,
                 self.stderr)
         else:
             # Procces started
@@ -126,12 +127,12 @@ class Check(object):
             if self.terminated:
                 # Time must have ran out
                 # check got terminated
-                self.returncode = 3
+                self.status_code = 3
                 self.stdout = ''
                 self.stderr = 'terminated, max time reached'
                 logger.error('check %s: %s ', self.name, self.stderr)
             else:
-                self.returncode = self.process.returncode
+                self.status_code = self.process.status_code
                 self.stdout = ' '.join(stdout.splitlines())
                 self.stderr = ' '.join(stderr.splitlines())
 
@@ -139,7 +140,7 @@ class Check(object):
                     'check %s: finished: PID: %d  return code %d',
                     self.name,
                     self.pid,
-                    self.returncode
+                    self.status_code
                 )
 
     def terminate(self):
@@ -173,7 +174,7 @@ class Check(object):
                 'PID: %d return code %d',
                 self.name,
                 self.pid,
-                self.returncode
+                self.status_code
             )
         else:
             logger.debug('check %s: not started, not terminating', self.name)
@@ -187,7 +188,7 @@ class Check(object):
         return time.time() - self.starttime
 
     @property
-    def validated_data(self):
+    def plugin_output(self):
         '''
         Checks (loosely) if performance data is form of:
         rx_errors=0;;;0;tx_errors=0;;;0;
@@ -210,18 +211,27 @@ class Check(object):
                 res = output
         return res
 
-    def __unicode__(self):
+    def __repr__(self):
         '''
         Representation in NSCA format
         '''
-        return '[{0:.0f}] {1};{2};{3};{4};{5}'.format(
-            self.endtime,
-            self.result_type,
-            self.hostname,
-            self.name,
-            self.returncode,
-            self.validated_data,
-        )
+        if self.result_type == 'PROCESS_SERVICE_CHECK_RESULT':
+            return '[{0:.0f}] {1};{2};{3};{4};{5}'.format(
+                self.endtime,
+                self.result_type,
+                self.hostname,
+                self.name,
+                self.status_code,
+                self.plugin_output,
+            )
+        else:
+            return '[{0:.0f}] {1};{2};{3};{4}'.format(
+                self.endtime,
+                self.result_type,
+                self.hostname,
+                self.status_code,
+                self.plugin_output,
+            )
 
 
 class CheckRun(object):
@@ -260,7 +270,7 @@ class PassiveCheckRunner(object):
         self.check_command_list = \
             configuration.read_check_commands(self.command_file)
 
-    def __unicode__(self):
+    def __repr__(self):
         mesg = '<pcrunner nsca_web_url: {0} nsca_web_username: {1}'
         mesg += ' hostname: {2} command_file: {3} result_file: {4}'
         mesg += ' max_procs:{5} timeout:{6} interval:{7} lines_per_post:{8}>'
@@ -311,11 +321,11 @@ class PassiveCheckRunner(object):
             logger.debug('check %s: on finished queue', check.name)
         logger.error('%d checks terminated', self.number_of_checks_terminated)
 
-        # Write returncode and stderr for checks that did not start.
+        # Write status_code and stderr for checks that did not start.
         for check in self.checks_not_started:
             check.start()
             check.end()
-            check.returncode = 3
+            check.status_code = 3
             check.stdout = ''
             check.stderr = 'check not started, max time exceeded'
             # Move check result queue.
@@ -524,7 +534,7 @@ class PassiveCheckRunner(object):
             )
 
         self.check_pcrunner.stdout = '{0} total time: {1:.4f} sec'.format(
-            exit_value[self.check_pcrunner.returncode],
+            exit_value[self.check_pcrunner.status_code],
             self.check_pcrunner.duration,
         )
         logger.debug('%s', self.check_pcrunner)
@@ -535,7 +545,7 @@ class PassiveCheckRunner(object):
         # Post results
         self.post_results()
         return (
-            self.check_pcrunner.returncode,
+            self.check_pcrunner.status_code,
             ' '.join(
                 (
                     self.check_pcrunner.stdout,
@@ -584,7 +594,7 @@ class PassiveCheckRunner(object):
             logger.critical(self.check_pcrunner.stderr)
             self.check_pcrunner.end()
             return (
-                self.check_pcrunner.returncode,
+                self.check_pcrunner.status_code,
                 ' '.join(
                     (self.check_pcrunner.stdout, self.check_pcrunner.stderr)
                 )
@@ -641,9 +651,9 @@ class PassiveCheckRunner(object):
 
         # Only warn 'self check' for now
         if self.number_of_checks_finished == self.number_of_checks:
-            self.check_pcrunner.returncode = 0
+            self.check_pcrunner.status_code = 0
         else:
-            self.check_pcrunner.returncode = 1
+            self.check_pcrunner.status_code = 1
         return self.check_pcrunner_end()
 
     def stop(self):

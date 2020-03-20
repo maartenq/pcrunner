@@ -2,6 +2,13 @@
 History
 =======
 
+0.4.8 (2020-03-20)
+-------------------
+
+* Fix #96 passive host check results seem to processed as service check results
+* Update requirements.
+
+
 0.4.7 (2019-10-26)
 -------------------
 

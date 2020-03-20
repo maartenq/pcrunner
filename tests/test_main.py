@@ -1,6 +1,9 @@
 # tests/test_pcrunner.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
+from __future__ import unicode_literals
+from __future__ import print_function
+
 import pytest
 
 from pcrunner.main import Check
@@ -8,7 +11,7 @@ from pcrunner.main import parse_pcrunner_args
 
 
 @pytest.fixture()
-def check():
+def service_check():
     return Check(
         'PROCESS_SERVICE_CHECK_RESULT',
         'dummy check',
@@ -17,20 +20,40 @@ def check():
     )
 
 
-def test_Check_attributes(check):
-    assert check.result_type == 'PROCESS_SERVICE_CHECK_RESULT'
-    assert check.name == 'dummy check'
-    assert check.command == '/usr/local/bin/check_dummy 0 -s 3'
-    assert check.hostname == 'localhost'
-    assert check.pid is None
-    assert check.process is None
-    assert check.returncode == 3
-    assert check.terminated is False
-    assert check.stdout == ''
-    assert check.stderr == ''
-    assert check.performance_data == ''
-    assert check.starttime == 0
-    assert check.endtime == 0
+@pytest.fixture()
+def host_check():
+    return Check(
+        'PROCESS_HOST_CHECK_RESULT',
+        'dummy check',
+        '/usr/local/bin/check_dummy 0 -s 3',
+        'localhost',
+    )
+
+
+def test_Check_attributes(service_check):
+    assert service_check.result_type == 'PROCESS_SERVICE_CHECK_RESULT'
+    assert service_check.name == 'dummy check'
+    assert service_check.command == '/usr/local/bin/check_dummy 0 -s 3'
+    assert service_check.hostname == 'localhost'
+    assert service_check.pid is None
+    assert service_check.process is None
+    assert service_check.status_code == 3
+    assert service_check.terminated is False
+    assert service_check.stdout == ''
+    assert service_check.stderr == ''
+    assert service_check.performance_data == ''
+    assert service_check.starttime == 0
+    assert service_check.endtime == 0
+
+
+def test_Service_Check_str_repr(service_check):
+    assert '{0}'.format(service_check) == \
+        '[0] PROCESS_SERVICE_CHECK_RESULT;localhost;dummy check;3;'
+
+
+def test_Host_Check_str_repr(host_check):
+    assert '{0}'.format(host_check) == \
+        '[0] PROCESS_HOST_CHECK_RESULT;localhost;3;'
 
 
 def test_parse_pcrunners_args_short():
