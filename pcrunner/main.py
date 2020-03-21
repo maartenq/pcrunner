@@ -133,8 +133,8 @@ class Check(object):
                 logger.error('check %s: %s ', self.name, self.stderr)
             else:
                 self.status_code = self.process.returncode
-                self.stdout = ' '.join(stdout.splitlines())
-                self.stderr = ' '.join(stderr.splitlines())
+                self.stdout = ' '.join(str(stdout).splitlines())
+                self.stderr = ' '.join(str(stderr).splitlines())
 
                 logger.debug(
                     'check %s: finished: PID: %d  return code %d',
