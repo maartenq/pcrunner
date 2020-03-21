@@ -132,7 +132,7 @@ class Check(object):
                 self.stderr = 'terminated, max time reached'
                 logger.error('check %s: %s ', self.name, self.stderr)
             else:
-                self.status_code = self.process.status_code
+                self.status_code = self.process.returncode
                 self.stdout = ' '.join(stdout.splitlines())
                 self.stderr = ' '.join(stderr.splitlines())
 

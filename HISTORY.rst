@@ -2,6 +2,11 @@
 History
 =======
 
+0.4.9 (2020-03-21)
+-------------------
+
+* Fix #97 AttributeError: 'Popen' object has no attribute 'status_code' #97
+
 0.4.8 (2020-03-20)
 -------------------
 
