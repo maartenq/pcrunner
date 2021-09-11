@@ -93,7 +93,6 @@ setup(
             "Sphinx",
             "black",
             "build",
-            "bump2version",
             "coverage",
             "pre-commit",
             "pytest",
