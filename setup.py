@@ -74,7 +74,6 @@ setup(
             "data/*",
             "init/*",
             "systemd/*",
-            "pcrunner.spec",
         ]
     },
     # include_package_data=True,
@@ -84,7 +83,11 @@ setup(
         ]
     },
     install_requires=requirements,
-    setup_requires=["setuptools_scm"],
+    setup_requires=[
+        "setuptools>=44",
+        "setuptools_scm>=5.0.2",
+        "wheel",
+    ],
     extras_require={
         "dev": [
             "Sphinx",

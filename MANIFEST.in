@@ -3,7 +3,6 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE.txt
 include README.rst
-include src/pcrunner/pcrunner.spec
 recursive-include src/pcrunner/etc *
 recursive-include src/pcrunner/data *
 recursive-include src/pcrunner/init *

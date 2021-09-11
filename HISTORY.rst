@@ -2,12 +2,20 @@
 History
 =======
 
+0.4.10 (2021-09-11)
+-------------------
+
+* Updated documentation.
+* Updated deployment.
+
+
 0.4.9 (2020-03-21)
 -------------------
 
 * Fix #97 AttributeError: 'Popen' object has no attribute 'status_code'
 * Fix #98 Python 3 TypeError: sequence item 0: expected str instance, bytes
   found
+
 
 0.4.8 (2020-03-20)
 -------------------
