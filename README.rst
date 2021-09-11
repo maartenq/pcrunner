@@ -2,7 +2,7 @@
 Pcrunner
 ========
 
-|pypi| |docs| |pre-commit| |workflow-ci|
+|pypi| |docs| |pre-commit| |workflow-ci| |codecov|
 
 Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
@@ -48,3 +48,7 @@ This package was created with Cookiecutter_ and the
 .. |workflow-ci| image:: https://github.com/maartenq/pcrunner/workflows/ci/badge.svg?branch=main
     :alt: CI status
     :target: https://github.com/maartenq/pcrunner/actions?workflow=ci
+
+.. |codecov| image:: https://codecov.io/gh/maartenq/pcrunner/branch/master/graph/badge.svg?token=INVK104RNN
+    :alt: Codecov
+    :target: https://codecov.io/gh/maartenq/pcrunner
