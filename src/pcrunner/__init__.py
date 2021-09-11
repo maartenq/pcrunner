@@ -22,9 +22,9 @@ except ImportError:
     try:
         __version__ = get_distribution("pcrunner").version
     except DistributionNotFound as exc:
-        raise PackageVersionError(exc)
+        raise PackageVersionError(str(exc))
 else:
     try:
         __version__ = version("pcrunner")
     except PackageNotFoundError as exc:
-        raise PackageVersionError(exc)
+        raise PackageVersionError(str(exc))
