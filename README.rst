@@ -2,22 +2,7 @@
 Pcrunner
 ========
 
-
-.. image:: https://img.shields.io/pypi/v/pcrunner.svg
-        :target: https://pypi.python.org/pypi/pcrunner
-        :alt: pypi
-
-.. image:: https://img.shields.io/travis/maartenq/pcrunner.svg
-        :target: https://travis-ci.org/maartenq/pcrunner
-        :alt: build
-
-.. image:: https://readthedocs.org/projects/pcrunner/badge/?version=latest
-        :target: https://pcrunner.readthedocs.io/en/latest/?badge=latest
-        :alt: docs
-
-.. image:: https://codecov.io/gh/maartenq/pcrunner/branch/master/graph/badge.svg
-        :target: https://codecov.io/gh/maartenq/pcrunner
-        :alt: codecov
+|pypi| |docs| |pre-commit| |workflow-ci|
 
 Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
@@ -55,3 +40,19 @@ This package was created with Cookiecutter_ and the
 .. _NSCAweb: https://github.com/smetj/nscaweb
 .. _Nagios: https://www.nagios.org/
 .. _Icinga: https://www.icinga.org/
+
+.. |pypi| image:: https://img.shields.io/pypi/v/pcrunner.svg
+    :alt: Pypi
+    :target: https://pypi.python.org/pypi/pcrunner
+
+.. |docs| image:: https://readthedocs.org/projects/pcrunner/badge/?version=latest
+    :alt: Documentation Status
+    :target: https://pcrunner.readthedocs.io/en/latest/
+
+.. |pre-commit| image:: https://results.pre-commit.ci/badge/github/maartenq/pcrunner/main.svg
+    :alt: pre-commit.ci status
+    :target: https://results.pre-commit.ci/latest/github/maartenq/pcrunner/main
+
+.. |workflow-ci| image:: https://github.com/maartenq/pcrunner/workflows/ci/badge.svg?branch=main
+    :alt: CI status
+    :target: https://github.com/maartenq/pcrunner/actions?workflow=ci
