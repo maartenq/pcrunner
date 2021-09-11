@@ -68,15 +68,15 @@ setup(
     ],
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    package_data={
-        "pcrunner": [
-            "etc/*",
-            "data/*",
-            "init/*",
-            "systemd/*",
-        ]
-    },
-    # include_package_data=True,
+    # package_data={
+    #     "pcrunner": [
+    #         "etc/*",
+    #         "data/*",
+    #         "init/*",
+    #         "systemd/*",
+    #     ]
+    # },
+    include_package_data=True,
     entry_points={
         "console_scripts": [
             "pcrunner = pcrunner.main:main",
