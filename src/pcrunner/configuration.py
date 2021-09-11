@@ -17,8 +17,8 @@ import multiprocessing
 import os
 import socket
 import tempfile
-import yaml
 
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -34,56 +34,39 @@ else:
 
 # Config
 DEFAULT_CONFIG = {
-
     # NSCW Web url
     'nsca_web_url': 'http://localhost:5668/queue',
-
     # NSCW Web username
     'nsca_web_username': 'default',
-
     # NSCW Web password
     'nsca_web_password': 'changeme',
-
     # hostname of local host (host that is being checked)
     'hostname': socket.gethostname(),
-
     # log file, if configured don't use syslog
     'log_file': None,
-
     # Verbose logging
     'verbose': False,
-
     # File with check commands
     'command_file': os.path.join(BASE_DIR, 'etc', 'commands.yml'),
-
     # Directory for results from external commands (not activated by default)
     'result_dir': None,
-
     # Temp file for results not yet uploaded to NSCA Web
     'result_file': os.path.join(BASE_DIR, 'data', 'pcrunner.dat'),
-
     # Number of maximum process to run concurrent
     'max_procs': multiprocessing.cpu_count(),
-
     # Time interval between chekcs in seconds
     'interval': 60,
-
     # Max secs to timeout when posting results to NSCA webserver
     'http_timeout': 3,
-
     # FQDN Syslog server
     # or None for local socket
     'syslog_server': None,
-
     # Syslog server port
     'syslog_port': 514,
-
     # Number of lines per HTTP post
     'lines_per_post': 400,
-
     # Maximum result data to post to NSCA webserver in bytes per line.
     'max_line_size': 8192,
-
     # Pid file
     'pid_file': PID_FILE,
 }
@@ -147,12 +130,15 @@ class Config(dict):
                 try:
                     yaml_dict = yaml.safe_load(fd)
                 except yaml.scanner.ScannerError:
-                    logger.error('Not a valid YAML file: %s',
-                                 self['config_file'])
+                    logger.error(
+                        'Not a valid YAML file: %s', self['config_file']
+                    )
         except IOError:
             logger.warning(
                 "Can't open config file: %s using defaults"
-                " and or command line arguments", self['config_file'])
+                " and or command line arguments",
+                self['config_file'],
+            )
         if yaml_dict:
             self.update(yaml_dict)
 
@@ -164,8 +150,9 @@ def read_check_commands_txt(fd):
         {
             'result_type': 'PROCESS_{0}_CHECK_RESULT'.format(y[0]),
             'name': y[1],
-            'command': ' '.join(y[2:])
-        } for y in (x.split('|') for x in command_txt.splitlines() if x)
+            'command': ' '.join(y[2:]),
+        }
+        for y in (x.split('|') for x in command_txt.splitlines() if x)
     ]
     return check_command_list
 

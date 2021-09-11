@@ -73,4 +73,3 @@
 # Maximum result data to post to NSCA webserver in bytes per line.
 # Default: 8192 bytes (max length of an external command)
 #max_line_size: 8192
-

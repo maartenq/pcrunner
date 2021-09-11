@@ -63,5 +63,3 @@ pcrunner command line arguments and options::
       -a, --no-daemon       Run pcrunner in foreground
       -v, --verbose         Show verbose info (level DEBUG).
       --version             Show version
-
-

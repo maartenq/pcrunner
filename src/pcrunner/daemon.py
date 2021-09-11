@@ -8,15 +8,14 @@ pcrunner.daemon
 
 Generic linux daemon base class for python 2.x/3.x.
 '''
-from __future__ import unicode_literals
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
-import io
-import sys
-import os
-import time
 import atexit
+import io
+import os
 import signal
+import sys
+import time
 
 
 class Daemon:
@@ -96,8 +95,7 @@ class Daemon:
             pid = None
 
         if pid:
-            mesg = "pid file {0} already exist. " + \
-                "Daemon already running?\n"
+            mesg = "pid file {0} already exist. " + "Daemon already running?\n"
             sys.stderr.write(mesg.format(self.pid_file))
             sys.exit(1)
 
@@ -118,8 +116,7 @@ class Daemon:
             pid = None
 
         if not pid:
-            mesg = "pid file {0} does not exist. " + \
-                "Daemon not running?\n"
+            mesg = "pid file {0} does not exist. " + "Daemon not running?\n"
             sys.stderr.write(mesg.format(self.pid_file))
             sys.exit(1)
 

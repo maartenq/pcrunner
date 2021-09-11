@@ -4,5 +4,3 @@
 from pcrunner.main import main
 
 main()
-
-

@@ -6,8 +6,7 @@
 A wrapper for running nagios checks within a limited time.
 """
 
-from __future__ import unicode_literals
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
 import shlex
 import subprocess
@@ -38,7 +37,7 @@ class Check(object):
             self.hostname,
             self.name,
             self.returncode,
-            ' '.join([self.stdout, self.stderr]).strip()
+            ' '.join([self.stdout, self.stderr]).strip(),
         )
 
 
@@ -52,13 +51,15 @@ class RunCheck(object):
         self.pid = None
 
     def __unicode__(self):
-        return '{{"check_restult": "{0}", "pid": "{1}", "time_start": ' \
+        return (
+            '{{"check_restult": "{0}", "pid": "{1}", "time_start": '
             '"{2:.0f}", "time_exec": "{3:.3f}"}}'.format(
                 self.check,
                 self.pid,
                 self.time_start,
                 self.time_exec,
             )
+        )
 
     def start(self):
         self.time_start = time.time()
@@ -75,16 +76,20 @@ class RunCheck(object):
             self.pid = self.process.pid
             self.poll_process()
             if not self.process_killed:
-                self.check.stderr, self.check.stdout = \
-                    self.process.communicate()
+                (
+                    self.check.stderr,
+                    self.check.stdout,
+                ) = self.process.communicate()
 
     def poll_process(self):
         while self.process.poll() is None:
             self.time_exec = time.time() - self.time_start
             if self.time_exec > self.timeout:
-                self.check.stderr = \
+                self.check.stderr = (
                     'Check timed out in {0:.0f} secs. No check results'.format(
-                        self.time_exec)
+                        self.time_exec
+                    )
+                )
                 self.check.returncode = 3
                 print(
                     '{0}[{1}]: {2}'.format(
@@ -110,7 +115,7 @@ class RunCheck(object):
                 self.process.kill()
                 self.process_killed = True
                 break
-            time.sleep(.1)
+            time.sleep(0.1)
         self.check.time = time.time()
 
 

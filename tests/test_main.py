@@ -1,13 +1,11 @@
 # tests/test_pcrunner.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
-from __future__ import unicode_literals
-from __future__ import print_function
+from __future__ import print_function, unicode_literals
 
 import pytest
 
-from pcrunner.main import Check
-from pcrunner.main import parse_pcrunner_args
+from pcrunner.main import Check, parse_pcrunner_args
 
 
 @pytest.fixture()
@@ -47,13 +45,17 @@ def test_Check_attributes(service_check):
 
 
 def test_Service_Check_str_repr(service_check):
-    assert '{0}'.format(service_check) == \
-        '[0] PROCESS_SERVICE_CHECK_RESULT;localhost;dummy check;3;'
+    assert (
+        '{0}'.format(service_check)
+        == '[0] PROCESS_SERVICE_CHECK_RESULT;localhost;dummy check;3;'
+    )
 
 
 def test_Host_Check_str_repr(host_check):
-    assert '{0}'.format(host_check) == \
-        '[0] PROCESS_HOST_CHECK_RESULT;localhost;3;'
+    assert (
+        '{0}'.format(host_check)
+        == '[0] PROCESS_HOST_CHECK_RESULT;localhost;3;'
+    )
 
 
 def test_parse_pcrunners_args_short():
@@ -62,21 +64,36 @@ def test_parse_pcrunners_args_short():
     '''
     args = parse_pcrunner_args(
         [
-            '-c', '/etc/config.yml',
-            '-n', 'http://nagios.example.com:5668/queue',
-            '-u', 'john',
-            '-p', 'secret03',
-            '-o', '/etc/commandfile.yml',
-            '-H', 'server.example.com',
-            '-i', '300',
-            '-m', '4',
-            '-e', '500',
-            '-r', '/var/spool/pcrunner.res',
-            '-d', '/var/spool/pcrunner/resultstuf',
-            '-f', '/var/run/pidfile.pid',
-            '-t', '5',
-            '-s', '442',
-            '-l', '/var/log/logfile.log',
+            '-c',
+            '/etc/config.yml',
+            '-n',
+            'http://nagios.example.com:5668/queue',
+            '-u',
+            'john',
+            '-p',
+            'secret03',
+            '-o',
+            '/etc/commandfile.yml',
+            '-H',
+            'server.example.com',
+            '-i',
+            '300',
+            '-m',
+            '4',
+            '-e',
+            '500',
+            '-r',
+            '/var/spool/pcrunner.res',
+            '-d',
+            '/var/spool/pcrunner/resultstuf',
+            '-f',
+            '/var/run/pidfile.pid',
+            '-t',
+            '5',
+            '-s',
+            '442',
+            '-l',
+            '/var/log/logfile.log',
             '-v',
             'stop',
         ]
@@ -110,21 +127,36 @@ def test_parse_pcrunners_args_long():
     '''
     args = parse_pcrunner_args(
         [
-            '--config-file', '/etc/config.yml',
-            '--nsca_web_url', 'http://nagios.example.com:5668/queue',
-            '--nsca-web-username', 'john',
-            '--nsca-web-password', 'secret03',
-            '--command-file', '/etc/commandfile.yml',
-            '--hostname', 'server.example.com',
-            '--interval', '300',
-            '--max-procs', '4',
-            '--lines-per-post', '500',
-            '--result-file', '/var/spool/pcrunner.res',
-            '--result-dir', '/var/spool/pcrunner/resultstuf',
-            '--pid-file', '/var/run/pidfile.pid',
-            '--http-timeout', '5',
-            '--max-line-size', '442',
-            '--log-file', '/var/log/logfile.log',
+            '--config-file',
+            '/etc/config.yml',
+            '--nsca_web_url',
+            'http://nagios.example.com:5668/queue',
+            '--nsca-web-username',
+            'john',
+            '--nsca-web-password',
+            'secret03',
+            '--command-file',
+            '/etc/commandfile.yml',
+            '--hostname',
+            'server.example.com',
+            '--interval',
+            '300',
+            '--max-procs',
+            '4',
+            '--lines-per-post',
+            '500',
+            '--result-file',
+            '/var/spool/pcrunner.res',
+            '--result-dir',
+            '/var/spool/pcrunner/resultstuf',
+            '--pid-file',
+            '/var/run/pidfile.pid',
+            '--http-timeout',
+            '5',
+            '--max-line-size',
+            '442',
+            '--log-file',
+            '/var/log/logfile.log',
             '--verbose',
             'start',
         ]
@@ -158,21 +190,36 @@ def test_parse_pcrunners_args_no_daemon():
     '''
     args = parse_pcrunner_args(
         [
-            '--config-file', '/etc/config.yml',
-            '--nsca_web_url', 'http://nagios.example.com:5668/queue',
-            '--nsca-web-username', 'john',
-            '--nsca-web-password', 'secret03',
-            '--command-file', '/etc/commandfile.yml',
-            '--hostname', 'server.example.com',
-            '--interval', '300',
-            '--max-procs', '4',
-            '--lines-per-post', '500',
-            '--result-file', '/var/spool/pcrunner.res',
-            '--result-dir', '/var/spool/pcrunner/resultstuf',
-            '--pid-file', '/var/run/pidfile.pid',
-            '--http-timeout', '5',
-            '--max-line-size', '442',
-            '--log-file', '/var/log/logfile.log',
+            '--config-file',
+            '/etc/config.yml',
+            '--nsca_web_url',
+            'http://nagios.example.com:5668/queue',
+            '--nsca-web-username',
+            'john',
+            '--nsca-web-password',
+            'secret03',
+            '--command-file',
+            '/etc/commandfile.yml',
+            '--hostname',
+            'server.example.com',
+            '--interval',
+            '300',
+            '--max-procs',
+            '4',
+            '--lines-per-post',
+            '500',
+            '--result-file',
+            '/var/spool/pcrunner.res',
+            '--result-dir',
+            '/var/spool/pcrunner/resultstuf',
+            '--pid-file',
+            '/var/run/pidfile.pid',
+            '--http-timeout',
+            '5',
+            '--max-line-size',
+            '442',
+            '--log-file',
+            '/var/log/logfile.log',
             '--verbose',
             '--no-daemon',
         ]

@@ -8,9 +8,9 @@ pcrunner.windows_service
 Entry poing for Passive Check Runner as Windows Service
 '''
 
+import win32event
 import win32service
 import win32serviceutil
-import win32event
 
 
 class PassiveCheckRunnerService(win32serviceutil.ServiceFramework):
@@ -42,9 +42,11 @@ class PassiveCheckRunnerService(win32serviceutil.ServiceFramework):
         # TODO: check what's happening
         sys.path.insert(0, site_packages_dir)
 
-        from pcrunner.main import setup_logging
-        from pcrunner.main import setup_syslog_with_config_opts
-        from pcrunner.main import PassiveCheckRunner
+        from pcrunner.main import (
+            PassiveCheckRunner,
+            setup_logging,
+            setup_syslog_with_config_opts,
+        )
 
         # Setup basic logging
         setup_logging()
@@ -55,18 +57,28 @@ class PassiveCheckRunnerService(win32serviceutil.ServiceFramework):
         config = configuration.Config()
 
         # Get logging args
-        log_args = config.subset('log_file', 'verbose', 'syslog_server',
-                                 'syslog_port')
+        log_args = config.subset(
+            'log_file', 'verbose', 'syslog_server', 'syslog_port'
+        )
         # Logging with config opts
         setup_syslog_with_config_opts(**log_args)
 
         # Get PassiveCheckRunner args
-        pcrunner_args = config.subset('nsca_web_url', 'nsca_web_username',
-                                      'nsca_web_password', 'hostname',
-                                      'command_file', 'result_file',
-                                      'result_dir', 'max_procs', 'interval',
-                                      'lines_per_post', 'pid_file',
-                                      'http_timeout', 'max_line_size')
+        pcrunner_args = config.subset(
+            'nsca_web_url',
+            'nsca_web_username',
+            'nsca_web_password',
+            'hostname',
+            'command_file',
+            'result_file',
+            'result_dir',
+            'max_procs',
+            'interval',
+            'lines_per_post',
+            'pid_file',
+            'http_timeout',
+            'max_line_size',
+        )
 
         # Init Passive Check Runner
         pcrunner = PassiveCheckRunner(**pcrunner_args)
