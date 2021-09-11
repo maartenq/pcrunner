@@ -9,15 +9,11 @@ pcrunner.main
 Main entry point for the pcrunner command.
 '''
 
-from __future__ import unicode_literals
-from __future__ import absolute_import
-from __future__ import print_function
-
-# from future.utils import python_2_unicode_compatible
+from __future__ import absolute_import, print_function, unicode_literals
 
 import argparse
-import itertools
 import io
+import itertools
 import logging
 import logging.handlers
 import os
@@ -29,24 +25,25 @@ import sys
 import threading
 import time
 from glob import glob
-from . import configuration
-from . import __version__
-from . daemon import Daemon
-from . exception import PostFailed
-from . exception import PostResultTooBig
+
+from . import __version__, configuration
+from .daemon import Daemon
+from .exception import PostFailed, PostResultTooBig
+
+# from future.utils import python_2_unicode_compatible
+
 
 PY3 = sys.version > '3'
 
 if PY3:
     from queue import Queue
     from urllib.parse import urlencode
-    from urllib.request import Request
-    from urllib.request import urlopen
+    from urllib.request import Request, urlopen
 else:
-    from Queue import Queue
     from urllib import urlencode
-    from urllib2 import Request
-    from urllib2 import urlopen
+
+    from Queue import Queue
+    from urllib2 import Request, urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -102,7 +99,8 @@ class Check(object):
             # Start process
             logger.debug('check %s: start subprocess %s', self.name, cmd)
             self.process = subprocess.Popen(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
         except OSError as error:
             self.end()
             self.status_code = 3
@@ -110,9 +108,14 @@ class Check(object):
             self.stderr = '{0}'.format(error)
             logger.error(
                 'check %s: failed: duration: %.4f command: %s'
-                'return code %d stdout: %s stderr: %s', self.name,
-                self.duration, self.command, self.status_code, self.stdout,
-                self.stderr)
+                'return code %d stdout: %s stderr: %s',
+                self.name,
+                self.duration,
+                self.command,
+                self.status_code,
+                self.stdout,
+                self.stderr,
+            )
         else:
             # Procces started
             self.pid = self.process.pid
@@ -140,7 +143,7 @@ class Check(object):
                     'check %s: finished: PID: %d  return code %d',
                     self.name,
                     self.pid,
-                    self.status_code
+                    self.status_code,
                 )
 
     def terminate(self):
@@ -174,7 +177,7 @@ class Check(object):
                 'PID: %d return code %d',
                 self.name,
                 self.pid,
-                self.status_code
+                self.status_code,
             )
         else:
             logger.debug('check %s: not started, not terminating', self.name)
@@ -195,7 +198,8 @@ class Check(object):
         Otherwise remove '|' and everything after.
         '''
         res = ' '.join(
-            (self.stdout, self.stderr, self.performance_data)).strip()
+            (self.stdout, self.stderr, self.performance_data)
+        ).strip()
         if '|' in res:
             output, perf = res.split('|', 1)
             s = re.search(r'.+=[\w\.;=]*', perf)
@@ -240,10 +244,22 @@ class CheckRun(object):
 
 
 class PassiveCheckRunner(object):
-    def __init__(self, nsca_web_url, nsca_web_username, nsca_web_password,
-                 hostname, command_file, result_file, result_dir,
-                 max_procs, interval, lines_per_post, pid_file, http_timeout,
-                 max_line_size):
+    def __init__(
+        self,
+        nsca_web_url,
+        nsca_web_username,
+        nsca_web_password,
+        hostname,
+        command_file,
+        result_file,
+        result_dir,
+        max_procs,
+        interval,
+        lines_per_post,
+        pid_file,
+        http_timeout,
+        max_line_size,
+    ):
         self.nsca_web_url = nsca_web_url
         self.nsca_web_username = nsca_web_username
         self.nsca_web_password = nsca_web_password
@@ -267,8 +283,9 @@ class PassiveCheckRunner(object):
         self.current_check_results = []
         self.check_results_external_commands = []
         # Get commands
-        self.check_command_list = \
-            configuration.read_check_commands(self.command_file)
+        self.check_command_list = configuration.read_check_commands(
+            self.command_file
+        )
 
     def __repr__(self):
         mesg = '<pcrunner nsca_web_url: {0} nsca_web_username: {1}'
@@ -332,8 +349,9 @@ class PassiveCheckRunner(object):
             self.finished_queue.put(check)
             logger.debug('check %s: on finished queue', check.name)
             logger.error(check.stderr)
-        logger.error('%d checks not started',
-                     self.number_of_checks_not_started)
+        logger.error(
+            '%d checks not started', self.number_of_checks_not_started
+        )
 
     def check_results_from_finished_queue(self):
         self.current_check_results = []
@@ -361,12 +379,20 @@ class PassiveCheckRunner(object):
         }
         request = Request(self.nsca_web_url, data, headers)
         try:
-            logger.debug('Posting %d results to: %s with length %d.',
-                         number_of_lines, self.nsca_web_url, data_len)
+            logger.debug(
+                'Posting %d results to: %s with length %d.',
+                number_of_lines,
+                self.nsca_web_url,
+                data_len,
+            )
             response = urlopen(request, timeout=self.http_timeout)
         except Exception as error:
-            logger.error('Failed to post %d results to %s: %s',
-                         number_of_lines, self.nsca_web_url, error)
+            logger.error(
+                'Failed to post %d results to %s: %s',
+                number_of_lines,
+                self.nsca_web_url,
+                error,
+            )
             raise PostFailed
         else:
             http_response_code = response.getcode()
@@ -385,8 +411,10 @@ class PassiveCheckRunner(object):
             with io.open(self.result_file, 'r', encoding='utf-8') as fd:
                 # There are results which are not posted in previous run.
                 # Try post them.
-                logger.debug('result file %s exists, try post old results',
-                             self.result_file)
+                logger.debug(
+                    'result file %s exists, try post old results',
+                    self.result_file,
+                )
                 # Iterate through result file.
                 # Post lines_per_post>
                 while True:
@@ -399,11 +427,12 @@ class PassiveCheckRunner(object):
                         self.results_post_failed += lines
                         # Get rest of the lines
                         self.results_post_failed += list(
-                            itertools.islice(fd, None))
+                            itertools.islice(fd, None)
+                        )
                         logger.debug(
                             '%d lines of old check results saved for later'
                             ' posting',
-                            len(self.results_post_failed)
+                            len(self.results_post_failed),
                         )
                         break
             # Remove current result file.
@@ -417,15 +446,14 @@ class PassiveCheckRunner(object):
         except IOError:
             # There is no result file: no old results to post.
             logger.debug(
-                'No result file (%s) of previous run.',
-                self.result_file
+                'No result file (%s) of previous run.', self.result_file
             )
 
     def read_results_from_spool_dir(self):
         if self.result_dir:
             logger.debug(
                 'reading results files from spool direcotry %s',
-                self.result_dir
+                self.result_dir,
             )
             epoch_time_fmt = 10 * '[0-9]'
             result_files = glob(
@@ -451,8 +479,10 @@ class PassiveCheckRunner(object):
                     logger.error(error)
 
         else:
-            logger.debug('No result directory configured: not reading results'
-                         ' from external commands.')
+            logger.debug(
+                'No result directory configured: not reading results'
+                ' from external commands.'
+            )
 
     def write_failed_results(self):
         logger.debug(
@@ -474,8 +504,9 @@ class PassiveCheckRunner(object):
         # Get results from external commands
         self.read_results_from_spool_dir()
         # Combine and sort results from current and external commands
-        check_results = self.current_check_results + \
-            self.check_results_external_commands
+        check_results = (
+            self.current_check_results + self.check_results_external_commands
+        )
         # make sure it's sorted
         check_results.sort()
         # Save to file if (post_results_previous_run) already failed
@@ -503,9 +534,8 @@ class PassiveCheckRunner(object):
                         itertools.islice(check_results_iter, None)
                     )
                     logger.debug(
-                        '%d lines of check results saved for later'
-                        ' posting',
-                        len(self.results_post_failed)
+                        '%d lines of check results saved for later' ' posting',
+                        len(self.results_post_failed),
                     )
                     break
             if self.results_post_failed:
@@ -513,25 +543,31 @@ class PassiveCheckRunner(object):
 
     @property
     def number_of_checks_finished(self):
-        return (self.number_of_checks - self.number_of_checks_terminated -
-                self.number_of_checks_not_started)
+        return (
+            self.number_of_checks
+            - self.number_of_checks_terminated
+            - self.number_of_checks_not_started
+        )
 
     def check_pcrunner_end(self):
         # All checks finished
         self.check_pcrunner.end()
         logger.debug('finished at at %.4f', self.check_pcrunner.endtime)
-        logger.debug('total duration: %.4f seconds',
-                     self.check_pcrunner.duration)
+        logger.debug(
+            'total duration: %.4f seconds', self.check_pcrunner.duration
+        )
 
         exit_value = ('OK', 'WARNING', 'CRITICAL', 'UNKNOWN')
 
-        self.check_pcrunner.performance_data = '| duration={0:f}, ' \
+        self.check_pcrunner.performance_data = (
+            '| duration={0:f}, '
             'finished={1:d}, terminated={2:d}, not_started={3:d}'.format(
                 self.check_pcrunner.duration,
                 self.number_of_checks_finished,
                 self.number_of_checks_terminated,
                 self.number_of_checks_not_started,
             )
+        )
 
         self.check_pcrunner.stdout = '{0} total time: {1:.4f} sec'.format(
             exit_value[self.check_pcrunner.status_code],
@@ -550,9 +586,9 @@ class PassiveCheckRunner(object):
                 (
                     self.check_pcrunner.stdout,
                     self.check_pcrunner.stderr,
-                    self.check_pcrunner.performance_data
+                    self.check_pcrunner.performance_data,
                 )
-            )
+            ),
         )
 
     def start(self):
@@ -597,11 +633,12 @@ class PassiveCheckRunner(object):
                 self.check_pcrunner.status_code,
                 ' '.join(
                     (self.check_pcrunner.stdout, self.check_pcrunner.stderr)
-                )
+                ),
             )
         else:
-            logger.debug('putting %d checks on start_queue',
-                         self.number_of_checks)
+            logger.debug(
+                'putting %d checks on start_queue', self.number_of_checks
+            )
         # Fill start_queue
         for check in self.checks:
             self.start_queue.put(check)
@@ -615,7 +652,7 @@ class PassiveCheckRunner(object):
         threads = [
             threading.Thread(
                 target=run_process,
-                args=(self.start_queue, self.run_queue, self.finished_queue)
+                args=(self.start_queue, self.run_queue, self.finished_queue),
             )
             for x in range(self.max_procs)
         ]
@@ -626,7 +663,7 @@ class PassiveCheckRunner(object):
 
         while self.finished_queue.qsize() < self.number_of_checks:
             # There are still results to be captured
-            time.sleep(.5)
+            time.sleep(0.5)
 
             logger.debug(
                 'start queue: %d, run queue: %d, finished queue: %d, '
@@ -641,10 +678,12 @@ class PassiveCheckRunner(object):
             if self.check_pcrunner.elapsed > self.timeout:
                 # Running out of time!
                 msg = 'timeout at {0:.2f} sec'.format(
-                    self.check_pcrunner.elapsed)
+                    self.check_pcrunner.elapsed
+                )
                 logger.error(msg)
                 self.check_pcrunner.stderr = ' '.join(
-                    [self.check_pcrunner.stderr, msg])
+                    [self.check_pcrunner.stderr, msg]
+                )
 
                 # Kill running checks
                 self.kill_running_checks()
@@ -696,8 +735,7 @@ def slice_up_file(fd, number_of_lines):
 
 
 def is_socket(path):
-    return os.path.exists(path) and \
-        stat.S_ISSOCK(os.stat(path).st_mode)
+    return os.path.exists(path) and stat.S_ISSOCK(os.stat(path).st_mode)
 
 
 def get_syslog_socket_or_win32():
@@ -751,8 +789,9 @@ def remove_root_logger_handlers():
     root_logger.handlers = []
 
 
-def setup_logging_with_config_opts(no_daemon, log_file, verbose,
-                                   syslog_server, syslog_port):
+def setup_logging_with_config_opts(
+    no_daemon, log_file, verbose, syslog_server, syslog_port
+):
     # remove existing handlers
     remove_root_logger_handlers()
 
@@ -787,7 +826,7 @@ def setup_logging_with_config_opts(no_daemon, log_file, verbose,
             handler.setFormatter(
                 logging.Formatter(
                     fmt='%(asctime)s %(name)s [%(process)d] %(levelname)-8s '
-                        '%(message)s',
+                    '%(message)s',
                     datefmt='%b %d %H:%M:%S',
                 )
             )
@@ -883,7 +922,7 @@ def parse_pcrunner_args(args):
         '--max-line-size',
         type=int,
         help='Maximum result data to post to NSCA webserver in bytes per'
-        ' line.'
+        ' line.',
     )
     parser.add_argument(
         '-l',
@@ -901,7 +940,7 @@ def parse_pcrunner_args(args):
         '-a',
         '--no-daemon',
         action='store_true',
-        help='Run %(prog)s in foreground'
+        help='Run %(prog)s in foreground',
     )
     parser.add_argument(
         '-v',
@@ -940,17 +979,28 @@ def main():
         logger.debug('%-20s:%s', key, value)
 
     # Get logging args
-    log_args = config.subset('no_daemon', 'log_file', 'verbose',
-                             'syslog_server', 'syslog_port')
+    log_args = config.subset(
+        'no_daemon', 'log_file', 'verbose', 'syslog_server', 'syslog_port'
+    )
     # Logging with config opts
     setup_logging_with_config_opts(**log_args)
 
     # Get PassiveCheckRunner args
-    pcrunner_args = config.subset('nsca_web_url', 'nsca_web_username',
-                                  'nsca_web_password', 'hostname',
-                                  'command_file', 'result_file', 'result_dir',
-                                  'max_procs', 'interval', 'lines_per_post',
-                                  'pid_file', 'http_timeout', 'max_line_size')
+    pcrunner_args = config.subset(
+        'nsca_web_url',
+        'nsca_web_username',
+        'nsca_web_password',
+        'hostname',
+        'command_file',
+        'result_file',
+        'result_dir',
+        'max_procs',
+        'interval',
+        'lines_per_post',
+        'pid_file',
+        'http_timeout',
+        'max_line_size',
+    )
 
     # Init Passive Check Runner
     pcrunner = PassiveCheckRunner(**pcrunner_args)

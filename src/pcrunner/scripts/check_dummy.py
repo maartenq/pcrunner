@@ -6,8 +6,8 @@
 A simple Nagios plugin for testing purposes.
 """
 
-import time
 import sys
+import time
 from argparse import ArgumentParser
 
 
@@ -23,7 +23,7 @@ def main(args):
 
 
 def parse_args(args):
-    """ Parse the command-line arguments to pcrunner. """
+    """Parse the command-line arguments to pcrunner."""
 
     parser = ArgumentParser(description='check_dummy.py')
     parser.add_argument(
