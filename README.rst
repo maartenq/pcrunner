@@ -8,14 +8,6 @@ Pcrunner (Passive Checks Runner is a daemon and service that periodically runs
 Nagios_ / Icinga_ checks paralell. The results are posted via HTTPS to a
 `NSCAweb`_ server.
 
-* GitHub: https://github.com/maartenq/pcrunner
-* Free software: https://opensource.org/licenses/ISC
-* PyPi: https://pypi.python.org/pypi/pcrunner
-* Documentation: https://pcrunner.readthedocs.io/en/latest/
-* Travis CI: https://travis-ci.org/maartenq/pcrunner
-* Codecov: https://codecov.io/github/maartenq/pcrunner
-
-
 Features
 --------
 
