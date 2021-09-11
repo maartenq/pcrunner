@@ -8,7 +8,10 @@ pcrunner
 Main package for Passive Check Runner
 """
 
-__version__ = "unknown"
+
+class PackageVersionError(Exception):
+    pass
+
 
 try:
     from importlib.metadata import PackageNotFoundError, version
@@ -18,10 +21,10 @@ except ImportError:
 
     try:
         __version__ = get_distribution("pcrunner").version
-    except DistributionNotFound:
-        pass
+    except DistributionNotFound as exc:
+        raise PackageVersionError(exc)
 else:
     try:
         __version__ = version("pcrunner")
-    except PackageNotFoundError:
-        pass
+    except PackageNotFoundError as exc:
+        raise PackageVersionError(exc)

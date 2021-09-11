@@ -12,4 +12,3 @@ skip-string-normalization = true
 profile = "black"
 
 [tool.setuptools_scm]
-write_to = "src/pcrunner/_version.py"
