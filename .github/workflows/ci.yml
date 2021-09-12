@@ -81,4 +81,4 @@ jobs:
         run: python -m pip install -e '.[dev]'
 
       - name: Import package and print version.
-        run: python -c 'import pcrunner; print(pcrunner.version.get_version())'
+        run: python -c 'from pcrunner.version import get_version; print(get_version())'
