@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
+
+from pcrunner.version import get_version
+
+#
 # Configuration file for the Sphinx documentation builder.
 #
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+# This file does only contain a selection of the most common options. For a
+# full list see the documentation:
+# http://www.sphinx-doc.org/en/master/config
 
 # -- Path setup --------------------------------------------------------------
 
@@ -14,7 +19,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'Passive Check Runner'
@@ -22,7 +26,10 @@ copyright = '2021, Maarten'
 author = 'Maarten'
 
 # The full version, including alpha/beta/rc tags
-release = '0.4.9'
+release = get_version()
+
+# The short X.Y version
+version = ".".join(release.split(".")[:2])
 
 
 # -- General configuration ---------------------------------------------------

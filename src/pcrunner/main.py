@@ -26,9 +26,10 @@ import threading
 import time
 from glob import glob
 
-from . import __version__, configuration
+from . import configuration
 from .daemon import Daemon
 from .exception import PostFailed, PostResultTooBig
+from .version import get_version
 
 # from future.utils import python_2_unicode_compatible
 
@@ -965,7 +966,7 @@ def main():
 
     # Version info
     if args.version:
-        print(__version__)
+        print(get_version())
         sys.exit(0)
 
     # Setup basic logging

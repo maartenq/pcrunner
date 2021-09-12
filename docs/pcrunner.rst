@@ -36,6 +36,14 @@ pcrunner.main module
    :undoc-members:
    :show-inheritance:
 
+pcrunner.version module
+-----------------------
+
+.. automodule:: pcrunner.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pcrunner.windows\_service module
 --------------------------------
 
