@@ -8,20 +8,15 @@ pcrunner
 Main package for Passive Check Runner
 """
 
-__version__ = "x.x.x"
-
+# Save package version set by setuptools_scm to pcrunner.__version__
 try:
-    from importlib.metadata import PackageNotFoundError, version
+    from importlib.metadata import version
 
 except ImportError:
-    from pkg_resources import DistributionNotFound, get_distribution
+    # Python version < 3.8
+    from pkg_resources import get_distribution
 
-    try:
-        __version__ = get_distribution('pcrunner').version
-    except DistributionNotFound:
-        pass
+    __version__ = get_distribution('pcrunner').version
+
 else:
-    try:
-        __version__ = version('pcrunner')
-    except PackageNotFoundError:
-        pass
+    __version__ = version('pcrunner')
