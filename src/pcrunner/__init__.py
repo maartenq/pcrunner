@@ -7,3 +7,21 @@ pcrunner
 
 Main package for Passive Check Runner
 """
+
+__version__ = "x.x.x"
+
+try:
+    from importlib.metadata import PackageNotFoundError, version
+
+except ImportError:
+    from pkg_resources import DistributionNotFound, get_distribution
+
+    try:
+        __version__ = get_distribution('pcrunner').version
+    except DistributionNotFound:
+        pass
+else:
+    try:
+        __version__ = version('pcrunner')
+    except PackageNotFoundError:
+        pass

@@ -5,6 +5,7 @@ from __future__ import print_function, unicode_literals
 
 import pytest
 
+from pcrunner import __version__
 from pcrunner.main import Check, parse_pcrunner_args
 
 
@@ -26,6 +27,11 @@ def host_check():
         '/usr/local/bin/check_dummy 0 -s 3',
         'localhost',
     )
+
+
+def test_pcrunner__version__():
+
+    assert __version__ != "x.x.x"
 
 
 def test_Check_attributes(service_check):

@@ -26,10 +26,9 @@ import threading
 import time
 from glob import glob
 
-from . import configuration
+from . import __version__, configuration
 from .daemon import Daemon
 from .exception import PostFailed, PostResultTooBig
-from .version import get_version
 
 # from future.utils import python_2_unicode_compatible
 
@@ -964,9 +963,8 @@ def main():
     # Parse args
     args = parse_pcrunner_args(sys.argv[1:])
 
-    # Version info
     if args.version:
-        print(get_version())
+        print(__version__)
         sys.exit(0)
 
     # Setup basic logging
