@@ -75,7 +75,7 @@ tox: ## Run tests on every Python version with tox.
 	tox
 
 .PHONY: coverage
-coverage: clean-test ## Check code coverage quickly with the default Python.
+coverage: ## Check code coverage quickly with the default Python.
 	python -m coverage erase
 	python -m coverage run --source $(PACKAGE) -m pytest
 	python -m coverage report -m
