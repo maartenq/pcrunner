@@ -76,8 +76,8 @@ setup(
     },
     install_requires=requirements,
     setup_requires=[
-        "setuptools>=44",
-        "setuptools_scm>=5.0.2",
+        "setuptools>=45",
+        "setuptools_scm>=6.2",
         "wheel",
     ],
     extras_require={
