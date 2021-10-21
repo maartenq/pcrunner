@@ -1,12 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # scripts/run_check.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 """
 A wrapper for running nagios checks within a limited time.
 """
-
-from __future__ import print_function, unicode_literals
 
 import shlex
 import subprocess

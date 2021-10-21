@@ -9,8 +9,6 @@ Contents:
    installation
    usage
    modules
-   contributing
-   authors
    history
 
 Feedback

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # pcrunner/daemon.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
@@ -6,9 +6,8 @@
 pcrunner.daemon
 ---------------
 
-Generic linux daemon base class for python 2.x/3.x.
+Generic linux daemon base class for python 3.x.
 '''
-from __future__ import print_function, unicode_literals
 
 import atexit
 import io

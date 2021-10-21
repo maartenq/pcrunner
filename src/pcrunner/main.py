@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # pcrunner/main.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
@@ -8,8 +8,6 @@ pcrunner.main
 
 Main entry point for the pcrunner command.
 '''
-
-from __future__ import absolute_import, print_function, unicode_literals
 
 import argparse
 import io
@@ -25,25 +23,13 @@ import sys
 import threading
 import time
 from glob import glob
+from queue import Queue
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 from . import __version__, configuration
 from .daemon import Daemon
 from .exception import PostFailed, PostResultTooBig
-
-# from future.utils import python_2_unicode_compatible
-
-
-PY3 = sys.version > '3'
-
-if PY3:
-    from queue import Queue
-    from urllib.parse import urlencode
-    from urllib.request import Request, urlopen
-else:
-    from urllib import urlencode
-
-    from Queue import Queue
-    from urllib2 import Request, urlopen
 
 logger = logging.getLogger(__name__)
 

@@ -1,8 +1,6 @@
 # tests/test_pcrunner.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
-from __future__ import print_function, unicode_literals
-
 import pytest
 
 from pcrunner import __version__

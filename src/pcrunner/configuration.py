@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # pcrunner/configuration.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
@@ -8,8 +8,6 @@ pcrunner.configuration
 
 Global configuration handling
 '''
-
-from __future__ import unicode_literals
 
 import io
 import logging

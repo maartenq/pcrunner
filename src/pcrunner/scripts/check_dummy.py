@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # scripts/check_dummy.py
 # vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
