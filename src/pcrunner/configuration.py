@@ -9,7 +9,6 @@ pcrunner.configuration
 Global configuration handling
 '''
 
-import io
 import logging
 import multiprocessing
 import os
@@ -104,7 +103,7 @@ class Config(dict):
                     data[key] = value
         if len(kwargs):
             data.update(kwargs)
-        super(Config, self).__init__(data)
+        super().__init__(data)
         self.update_yaml()
 
     def subset(self, *keys, **kwargs):
@@ -112,7 +111,7 @@ class Config(dict):
         Return a sub set of Config dict of keys
         if kwargs also update the returned dictionary.
         '''
-        _dict = dict((key, self.get(key)) for key in keys)
+        _dict = {key: self.get(key) for key in keys}
         if len(kwargs):
             _dict.update(kwargs)
         return _dict
@@ -124,14 +123,14 @@ class Config(dict):
         # Get defaults
         yaml_dict = {}
         try:
-            with io.open(self['config_file'], 'r', encoding='utf-8') as fd:
+            with open(self['config_file'], encoding='utf-8') as fd:
                 try:
                     yaml_dict = yaml.safe_load(fd)
                 except yaml.scanner.ScannerError:
                     logger.error(
                         'Not a valid YAML file: %s', self['config_file']
                     )
-        except IOError:
+        except OSError:
             logger.warning(
                 "Can't open config file: %s using defaults"
                 " and or command line arguments",
@@ -146,7 +145,7 @@ def read_check_commands_txt(fd):
     command_txt = fd.read()
     check_command_list = [
         {
-            'result_type': 'PROCESS_{0}_CHECK_RESULT'.format(y[0]),
+            'result_type': f'PROCESS_{y[0]}_CHECK_RESULT',
             'name': y[1],
             'command': ' '.join(y[2:]),
         }
@@ -168,11 +167,11 @@ def read_check_commands(command_filename):
     check_command_list = []
     file_name, file_extention = os.path.splitext(command_filename)
     try:
-        with io.open(command_filename, 'r', encoding='utf-8') as fd:
+        with open(command_filename, encoding='utf-8') as fd:
             if file_extention == '.txt':
                 check_command_list = read_check_commands_txt(fd)
             else:
                 check_command_list = read_check_commands_yaml(fd)
-    except IOError as err:
+    except OSError as err:
         logger.error(str(err))
     return check_command_list

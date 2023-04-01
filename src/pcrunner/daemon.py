@@ -10,7 +10,6 @@ Generic linux daemon base class for python 3.x.
 '''
 
 import atexit
-import io
 import os
 import signal
 import sys
@@ -37,7 +36,7 @@ class Daemon:
                 # exit first parent
                 sys.exit(0)
         except OSError as err:
-            sys.stderr.write('fork #1 failed: {0}\n'.format(err))
+            sys.stderr.write(f'fork #1 failed: {err}\n')
             sys.exit(1)
 
         # decouple from parent environment
@@ -49,19 +48,18 @@ class Daemon:
         try:
             pid = os.fork()
             if pid > 0:
-
                 # exit from second parent
                 sys.exit(0)
         except OSError as err:
-            sys.stderr.write('fork #2 failed: {0}\n'.format(err))
+            sys.stderr.write(f'fork #2 failed: {err}\n')
             sys.exit(1)
 
         # redirect standard file descriptors
         sys.stdout.flush()
         sys.stderr.flush()
-        si = io.open(os.devnull, 'r')
-        so = io.open(os.devnull, 'a+')
-        se = io.open(os.devnull, 'a+')
+        si = open(os.devnull)
+        so = open(os.devnull, 'a+')
+        se = open(os.devnull, 'a+')
 
         os.dup2(si.fileno(), sys.stdin.fileno())
         os.dup2(so.fileno(), sys.stdout.fileno())
@@ -71,7 +69,7 @@ class Daemon:
         atexit.register(self.delpid)
 
         pid = os.getpid()
-        with io.open(self.pid_file, 'w+', encoding='utf-8') as f:
+        with open(self.pid_file, 'w+', encoding='utf-8') as f:
             f.write('%d\n' % pid)
 
     def delpid(self):
@@ -87,10 +85,9 @@ class Daemon:
 
         # Check for a pid_file to see if the daemon already runs
         try:
-            with io.open(self.pid_file, 'r', encoding='utf-8') as pf:
-
+            with open(self.pid_file, encoding='utf-8') as pf:
                 pid = int(pf.read().strip())
-        except IOError:
+        except OSError:
             pid = None
 
         if pid:
@@ -109,9 +106,9 @@ class Daemon:
 
         # Get the pid from the pid file
         try:
-            with io.open(self.pid_file, 'r', encoding='utf-8') as pf:
+            with open(self.pid_file, encoding='utf-8') as pf:
                 pid = int(pf.read().strip())
-        except IOError:
+        except OSError:
             pid = None
 
         if not pid:
@@ -125,12 +122,12 @@ class Daemon:
                 os.kill(pid, signal.SIGTERM)
                 time.sleep(0.1)
         except OSError as err:
-            e = '{0}'.format(err.args)
+            e = f'{err.args}'
             if e.find("No such process") > 0:
                 if os.path.exists(self.pid_file):
                     os.remove(self.pid_file)
             else:
-                print('{0}'.format(err.args))
+                print(f'{err.args}')
                 sys.exit(1)
 
     def run(self):

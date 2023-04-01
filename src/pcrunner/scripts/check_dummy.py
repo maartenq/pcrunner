@@ -16,10 +16,10 @@ def main(args):
         if args.sleep:
             time.sleep(args.sleep)
         if args.text:
-            print((args.text))
+            print(args.text)
         sys.exit(args.exitcode)
     else:
-        raise Exception('exit code should be >= 0 and < 4')
+        raise Exception('exit code should be >= 0 and < 4')  # noqa: TRY002
 
 
 def parse_args(args):

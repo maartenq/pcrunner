@@ -1,8 +1,6 @@
 # tests/test_pcrunner.py
-# vim: ai et ts=4 sw=4 sts=4 ft=python fileencoding=utf-8
 
 import pytest
-
 from pcrunner import __version__
 from pcrunner.main import Check, parse_pcrunner_args
 
@@ -28,7 +26,6 @@ def host_check():
 
 
 def test_pcrunner__version__():
-
     assert __version__ != "x.x.x"
 
 
@@ -50,16 +47,13 @@ def test_Check_attributes(service_check):
 
 def test_Service_Check_str_repr(service_check):
     assert (
-        '{0}'.format(service_check)
+        f'{service_check}'
         == '[0] PROCESS_SERVICE_CHECK_RESULT;localhost;dummy check;3;'
     )
 
 
 def test_Host_Check_str_repr(host_check):
-    assert (
-        '{0}'.format(host_check)
-        == '[0] PROCESS_HOST_CHECK_RESULT;localhost;3;'
-    )
+    assert f'{host_check}' == '[0] PROCESS_HOST_CHECK_RESULT;localhost;3;'
 
 
 def test_parse_pcrunners_args_short():

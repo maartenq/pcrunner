@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Configuration file for the Sphinx documentation builder.
 #
 # This file does only contain a selection of the most common options. For a
@@ -20,7 +18,7 @@ from pcrunner import __version__
 # -- Project information -----------------------------------------------------
 
 project = 'Passive Check Runner'
-copyright = '2021, Maarten'
+copyright = '2021, Maarten'  # noqa: A001
 author = 'Maarten'
 
 # The short X.Y version

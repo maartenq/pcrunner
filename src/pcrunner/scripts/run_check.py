@@ -13,7 +13,7 @@ import time
 from argparse import ArgumentParser
 
 
-class Check(object):
+class Check:
     def __init__(self, name, hostname, cmd_line, result_type):
         self.name = name
         self.hostname = hostname
@@ -29,7 +29,7 @@ class Check(object):
         '''
         String representation in NSCA format
         '''
-        return '[{0:.0f}] {1};{2};{3};{4};{5}'.format(
+        return '[{:.0f}] {};{};{};{};{}'.format(
             self.time,
             self.result_type,
             self.hostname,
@@ -39,7 +39,7 @@ class Check(object):
         )
 
 
-class RunCheck(object):
+class RunCheck:
     def __init__(self, check, timeout):
         self.check = check
         self.timeout = timeout
@@ -50,7 +50,8 @@ class RunCheck(object):
 
     def __unicode__(self):
         return (
-            '{{"check_restult": "{0}", "pid": "{1}", "time_start": '
+            '{{"check_restult": "{0}", '  # noqa: UP030
+            '"pid": "{1}", "time_start": '
             '"{2:.0f}", "time_exec": "{3:.3f}"}}'.format(
                 self.check,
                 self.pid,
@@ -84,20 +85,20 @@ class RunCheck(object):
             self.time_exec = time.time() - self.time_start
             if self.time_exec > self.timeout:
                 self.check.stderr = (
-                    'Check timed out in {0:.0f} secs. No check results'.format(
+                    'Check timed out in {:.0f} secs. No check results'.format(
                         self.time_exec
                     )
                 )
                 self.check.returncode = 3
                 print(
-                    '{0}[{1}]: {2}'.format(
+                    '{}[{}]: {}'.format(
                         self.check.name,
                         self.pid,
                         self.check.stderr,
                     )
                 )
                 print(
-                    '{0}[{1}]: terminate process'.format(
+                    '{}[{}]: terminate process'.format(
                         self.check.name,
                         self.pid,
                     )
@@ -105,7 +106,7 @@ class RunCheck(object):
                 self.process.terminate()
                 time.sleep(1)
                 print(
-                    '{0}[{1}]: kill process'.format(
+                    '{}[{}]: kill process'.format(
                         self.check.name,
                         self.pid,
                     )

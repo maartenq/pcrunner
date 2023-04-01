@@ -10,7 +10,6 @@ Main entry point for the pcrunner command.
 '''
 
 import argparse
-import io
 import itertools
 import logging
 import logging.handlers
@@ -43,7 +42,7 @@ class PassiveCheckRunnerDaemon(Daemon):
         self.pcrunner.run()
 
 
-class Check(object):
+class Check:
     def __init__(self, result_type, name, command, hostname):
         self.result_type = result_type
         self.name = name
@@ -61,12 +60,12 @@ class Check(object):
 
     def start(self):
         # should be called once
-        assert self.endtime == 0
+        assert self.endtime == 0  # noqa: S101
         self.starttime = time.time()
 
     def end(self):
         # should be called once
-        assert self.endtime == 0
+        assert self.endtime == 0  # noqa: S101
         self.endtime = time.time()
 
     def run(self):
@@ -91,7 +90,7 @@ class Check(object):
             self.end()
             self.status_code = 3
             self.stdout = ' '
-            self.stderr = '{0}'.format(error)
+            self.stderr = f'{error}'
             logger.error(
                 'check %s: failed: duration: %.4f command: %s'
                 'return code %d stdout: %s stderr: %s',
@@ -190,7 +189,7 @@ class Check(object):
             output, perf = res.split('|', 1)
             s = re.search(r'.+=[\w\.;=]*', perf)
             if s:
-                res = '{0}|{1}'.format(output, s.group())
+                res = f'{output}|{s.group()}'
                 logger.debug('YEAH: %s', res)
             else:
                 logger.warning(
@@ -206,7 +205,7 @@ class Check(object):
         Representation in NSCA format
         '''
         if self.result_type == 'PROCESS_SERVICE_CHECK_RESULT':
-            return '[{0:.0f}] {1};{2};{3};{4};{5}'.format(
+            return '[{:.0f}] {};{};{};{};{}'.format(
                 self.endtime,
                 self.result_type,
                 self.hostname,
@@ -215,7 +214,7 @@ class Check(object):
                 self.plugin_output,
             )
         else:
-            return '[{0:.0f}] {1};{2};{3};{4}'.format(
+            return '[{:.0f}] {};{};{};{}'.format(
                 self.endtime,
                 self.result_type,
                 self.hostname,
@@ -224,12 +223,12 @@ class Check(object):
             )
 
 
-class CheckRun(object):
+class CheckRun:
     def __init__(self, hostname):
         self.hostname = hostname
 
 
-class PassiveCheckRunner(object):
+class PassiveCheckRunner:
     def __init__(
         self,
         nsca_web_url,
@@ -344,7 +343,7 @@ class PassiveCheckRunner(object):
         while not self.finished_queue.empty():
             check = self.finished_queue.get()
             logger.debug('format check result: %s', check)
-            self.current_check_results.append('{0}\n'.format(check))
+            self.current_check_results.append(f'{check}\n')
 
     def post(self, lines):
         results = ''.join(lines).encode('utf-8')
@@ -371,7 +370,10 @@ class PassiveCheckRunner(object):
                 self.nsca_web_url,
                 data_len,
             )
-            response = urlopen(request, timeout=self.http_timeout)
+            response = urlopen(  # noqa: S310
+                request,
+                timeout=self.http_timeout,
+            )
         except Exception as error:
             logger.error(
                 'Failed to post %d results to %s: %s',
@@ -379,7 +381,7 @@ class PassiveCheckRunner(object):
                 self.nsca_web_url,
                 error,
             )
-            raise PostFailed
+            raise PostFailed  # noqa: B904
         else:
             http_response_code = response.getcode()
             logger.debug('HTTP return code: %s', http_response_code)
@@ -394,7 +396,7 @@ class PassiveCheckRunner(object):
         failed checks in ``self.results_post_failed``.
         '''
         try:
-            with io.open(self.result_file, 'r', encoding='utf-8') as fd:
+            with open(self.result_file, encoding='utf-8') as fd:
                 # There are results which are not posted in previous run.
                 # Try post them.
                 logger.debug(
@@ -429,7 +431,7 @@ class PassiveCheckRunner(object):
             except OSError as error:
                 logger.error(error)
 
-        except IOError:
+        except OSError:
             # There is no result file: no old results to post.
             logger.debug(
                 'No result file (%s) of previous run.', self.result_file
@@ -442,11 +444,9 @@ class PassiveCheckRunner(object):
                 self.result_dir,
             )
             epoch_time_fmt = 10 * '[0-9]'
-            result_files = glob(
-                '{0}/{1}*'.format(self.result_dir, epoch_time_fmt)
-            )
+            result_files = glob(f'{self.result_dir}/{epoch_time_fmt}*')
             for result_file in result_files:
-                with io.open(result_file, 'r', encoding='utf-8') as fd:
+                with open(result_file, encoding='utf-8') as fd:
                     logger.debug('reading results from %s', result_file)
                     for line in fd.readlines():
                         if len(line) < self.max_line_size:
@@ -477,7 +477,7 @@ class PassiveCheckRunner(object):
             self.result_file,
         )
         try:
-            with io.open(self.result_file, 'w', encoding='utf-8') as fd:
+            with open(self.result_file, 'w', encoding='utf-8') as fd:
                 fd.write(''.join(self.results_post_failed))
         except Exception as error:
             logger.error(error)
@@ -546,7 +546,7 @@ class PassiveCheckRunner(object):
         exit_value = ('OK', 'WARNING', 'CRITICAL', 'UNKNOWN')
 
         self.check_pcrunner.performance_data = (
-            '| duration={0:f}, '
+            '| duration={0:f}, '  # noqa: UP030
             'finished={1:d}, terminated={2:d}, not_started={3:d}'.format(
                 self.check_pcrunner.duration,
                 self.number_of_checks_finished,
@@ -555,7 +555,7 @@ class PassiveCheckRunner(object):
             )
         )
 
-        self.check_pcrunner.stdout = '{0} total time: {1:.4f} sec'.format(
+        self.check_pcrunner.stdout = '{} total time: {:.4f} sec'.format(
             exit_value[self.check_pcrunner.status_code],
             self.check_pcrunner.duration,
         )
@@ -631,7 +631,7 @@ class PassiveCheckRunner(object):
 
         # Put 'None's at the end of the start_queue
         # to signal thread funtion to stop.
-        for i in range(self.max_procs):
+        for _i in range(self.max_procs):
             self.start_queue.put(None)
 
         # Start threads
@@ -663,7 +663,7 @@ class PassiveCheckRunner(object):
 
             if self.check_pcrunner.elapsed > self.timeout:
                 # Running out of time!
-                msg = 'timeout at {0:.2f} sec'.format(
+                msg = 'timeout at {:.2f} sec'.format(
                     self.check_pcrunner.elapsed
                 )
                 logger.error(msg)
@@ -737,10 +737,7 @@ def get_syslog_socket_or_win32():
 
 
 def setup_logging(log_file=None, verbose=False, console=False):
-    if verbose:
-        log_level = logging.DEBUG
-    else:
-        log_level = logging.INFO
+    log_level = logging.DEBUG if verbose else logging.INFO
 
     log_format = logging.Formatter(
         fmt='%(asctime)s %(name)s [%(process)d] %(levelname)-8s %(message)s',
