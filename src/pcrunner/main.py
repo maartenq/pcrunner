@@ -121,8 +121,8 @@ class Check:
                 logger.error('check %s: %s ', self.name, self.stderr)
             else:
                 self.status_code = self.process.returncode
-                self.stdout = ' '.join(str(stdout).splitlines())
-                self.stderr = ' '.join(str(stderr).splitlines())
+                self.stdout = ' '.join(stdout.decode().splitlines())
+                self.stderr = ' '.join(stderr.decode().splitlines())
 
                 logger.debug(
                     'check %s: finished: PID: %d  return code %d',
